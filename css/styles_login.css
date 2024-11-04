@@ -1,0 +1,123 @@
+/* Estilos personalizados mínimos */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+html {
+    height: 100%;
+}
+
+.container {
+    padding-top: 50px;
+    background-color: #161b22;
+    border-radius: 20px;
+    padding: 20px;
+    width: 800px;
+}
+
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #c9d1d9;
+    /* Texto claro */
+}
+
+.error {
+    color: #f85149;
+    /* Rojo para mensajes de error */
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.form-control {
+    background-color: #0d1117;
+    /* Fondo oscuro para inputs */
+    color: #c9d1d9;
+    /* Texto claro para inputs */
+    border: 1px solid #30363d;
+    /* Borde gris oscuro */
+}
+
+.form-control:focus {
+    background-color: #0d1117;
+    /* Fondo oscuro para inputs */
+    color: #c9d1d9;
+    /* Texto claro para inputs */
+    border-color: #58a6ff;
+    /* Borde azul claro al enfocar */
+    box-shadow: none;
+}
+
+.form-control {
+    border-radius: 20px;
+}
+
+
+
+.btn-primary {
+    background-color: #238636;
+    /* Botón verde oscuro */
+    border-color: #238636;
+}
+
+.btn-primary:hover {
+    background-color: #2ea043;
+    /* Botón verde más claro al pasar el ratón */
+    border-color: #2ea043;
+}
+
+.btn-secondary {
+    background-color: #30363d;
+    /* Botón gris oscuro */
+    border-color: #30363d;
+}
+
+.btn-secondary:hover {
+    background-color: #3b4048;
+    /* Botón gris más claro al pasar el ratón */
+    border-color: #3b4048;
+}
+
+button {
+    cursor: pointer;
+    /* acercar los botones arriba a abajo*/
+    margin-top: 10px;
+    border-radius: 40px !important;
+}
+
+.input-group-text input[type="checkbox"] {
+    accent-color: #238636;
+    /* Color del checkbox */
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Estilo para la etiqueta del checkbox */
+.input-group-text label {
+    margin-left: 5px;
+    color: #1c63aa;
+    cursor: pointer;
+}
+
+#checkboxx {
+    background-color: #0d1117;
+    border-color: #30363d;
+    border-radius: 0 20px 20px 0;
+}
+
+.custom-checkbox {
+    display: none;
+}

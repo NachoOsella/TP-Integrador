@@ -1,0 +1,233 @@
+/* styles_main.css */
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+
+}
+
+.row {
+    justify-content: center;
+}
+
+.card {
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    margin-bottom: 20px;
+    background-color: #161b22;
+
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+    color: #58a6ff;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+
+/* estilos para los botones */
+.btn {
+    display: inline-block;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: #238636;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #238636;
+    border-color: #238636;
+}
+
+.btn-danger {
+    background-color: #da3633;
+    border-color: #da3633;
+}
+
+.btn-warning {
+    background-color: #d29922;
+    border-color: #d29922;
+    color: #0d1117;
+}
+
+.btn:hover {
+    background-color: #2ea043;
+    border-color: #2c974b;
+}
+
+.btn-primary:hover {
+    background-color: #2ea043;
+    border-color: #2c974b;
+}
+
+.btn-danger:hover {
+    background-color: #b62324;
+    border-color: #a21e1e;
+}
+
+.btn-warning:hover {
+    background-color: #bb8009;
+    border-color: #9e6a03;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #c9d1d9;
+}
+
+/* Estilos para los formularios */
+form {
+    background-color: #161b22;
+    /* Color de fondo del formulario */
+    padding: 20px;
+    border-radius: 6px;
+}
+
+form .form-label {
+    color: #58a6ff;
+    /* Color del texto de las etiquetas */
+}
+
+form .form-control {
+    background-color: #0d1117;
+    /* Color de fondo de los campos de entrada */
+    color: #c9d1d9;
+    /* Color del texto de los campos de entrada */
+    border: 1px solid #30363d;
+    /* Color del borde de los campos de entrada */
+}
+
+form .form-control:focus {
+    background-color: #0d1117;
+    /* Color de fondo de los campos de entrada al enfocarse */
+    color: #c9d1d9;
+    /* Color del texto de los campos de entrada al enfocarse */
+    border-color: #58a6ff;
+    /* Color del borde de los campos de entrada al enfocarse */
+    box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+    /* Sombra al enfocarse */
+}
+
+
+/* Estilos para el menú */
+.navbar {
+    background-color: #0d1117;
+    /* Fondo del mismo color que el resto del archivo */
+    border-bottom: 1px solid #30363d;
+}
+
+.navbar-brand {
+    color: #58a6ff;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.navbar-nav .nav-link {
+    color: #c9d1d9;
+    margin-right: 15px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #58a6ff;
+}
+
+.navbar-toggler {
+    border-color: #30363d;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%2888, 166, 255, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.dropdown-menu {
+    background-color: #0d1117;
+    /* Fondo del mismo color que el resto del archivo */
+    border: 1px solid #30363d;
+}
+
+.dropdown-item {
+    color: #c9d1d9;
+}
+
+.dropdown-item:hover {
+    background-color: #30363d;
+    color: #58a6ff;
+}
+
+
+/* Estilos para la tabla */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #c9d1d9;
+    background-color: #161b22;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #30363d;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #30363d;
+}
+
+.table tbody+tbody {
+    border-top: 2px solid #30363d;
+}
+
+.table-dark {
+    color: #c9d1d9;
+    background-color: #161b22;
+}
+
+.table-dark th,
+.table-dark td,
+.table-dark thead th {
+    border-color: #30363d;
+}
+
+.table-dark.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.table-dark.table-hover tbody tr:hover {
+    color: #c9d1d9;
+    background-color: rgba(255, 255, 255, 0.075);
+}
