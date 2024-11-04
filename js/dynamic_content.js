@@ -40,11 +40,6 @@ function mostrarPeliculas() {
     });
 }
 
-// al apretar el boton editar te redirecciona a modificacion.html
-function editar_Pelicula(id) {
-    window.location.href = `modificacion.html?id=${id}`;
-}
-
 // logica de edicion de peliculas
 async function editarPelicula(id) {
     try {
