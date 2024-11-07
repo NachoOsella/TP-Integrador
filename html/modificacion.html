@@ -13,22 +13,10 @@
 <body>
     <div class="container mt-5">
         <h2>Modificar los datos de una película</h2>
-        <form>
+        <form id="modificar-form">
             <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" required>
-            </div>
-            <div class="mb-3">
-                <label for="director" class="form-label">Director</label>
-                <input type="text" class="form-control" id="director" required>
-            </div>
-            <div class="mb-3">
-                <label for="genero" class="form-label">Género</label>
-                <input type="text" class="form-control" id="genero" required>
-            </div>
-            <div class="mb-3">
-                <label for="año" class="form-label">Año</label>
-                <input type="number" class="form-control" id="año" required>
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" required></textarea>
             </div>
             <button type="submit" id="guardar" class="btn btn-warning">Modificar</button>
         </form>

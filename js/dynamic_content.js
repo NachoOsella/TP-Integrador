@@ -13,84 +13,110 @@ function cargar_vista(url, callback = null) { // parámetro opcional
         })
 }
 
-const data = [
-    { id: 1, titulo: 'Pelicula 1', director: 'Director 1', anio: 2021, genero: 'Acción' },
-    { id: 2, titulo: 'Pelicula 2', director: 'Director 2', anio: 2020, genero: 'Comedia' },
-    { id: 3, titulo: 'Pelicula 3', director: 'Director 3', anio: 2019, genero: 'Drama' }
-];
 
-function mostrarPeliculas() {
-    const tbody = document.getElementById('tbody');
-    tbody.innerHTML = ''; // Limpiar contenido existente
-    data.forEach(pelicula => {
-        const tr = document.createElement('tr');
-
-        tr.innerHTML = `
-            <td style="display: none;">${pelicula.id}</td>
-            <td>${pelicula.titulo}</td>
-            <td>${pelicula.director}</td>
-            <td>${pelicula.anio}</td>
-            <td>${pelicula.genero}</td>
-            <td>
-                <button class="btn btn-warning btn-sm" onclick="editarPelicula(${pelicula.id})">Editar</button>
-                <button class="btn btn-danger btn-sm" onclick="eliminarPelicula(${pelicula.id})">Eliminar</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-// logica de edicion de peliculas
-async function editarPelicula(id) {
+async function mostrarPeliculas() {
     try {
-        // Buscar la película en los datos globales
-        const peli = data.find(p => p.id === id);
-        if (!peli) {
-            throw new Error('Película no encontrada');
+        // Enviar solicitud GET al endpoint de obtener películas
+        const response = await fetch('http://localhost:5171/api/Cine/GetPeliculas');
+        // Si la respuesta no es exitosa, lanzar un error
+        if (!response.ok) {
+            throw new Error('Error en la solicitud: ' + response.statusText);
         }
-        console.log(peli);
-        cargar_vista('modificacion.html', () => {
-            console.log(peli);
-            const $titulo = document.getElementById('titulo');
-            const $año = document.getElementById('año');
-            const $director = document.getElementById('director');
-            const $genero = document.getElementById('genero');
 
-            // Asignar los valores encontrados a los elementos del DOM
-            $titulo.value = peli.titulo;
-            $año.value = peli.año;
-            $director.value = peli.director;
-            $genero.value = peli.genero;
+        // Convertir la respuesta a JSON
+        const data = await response.json();
 
-            // Completar evento onClick del Guardar y llamar al PUT para hacer el update
-            document.getElementById('guardar').onclick = function () {
-                // Simulación de la actualización de la película
-                const updatedPeli = {
-                    titulo: $titulo.value,
-                    año: $año.value,
-                    director: $director.value,
-                    genero: $genero.value
-                };
-                console.log("Película actualizada:", updatedPeli);
-                alert('Película actualizada correctamente');
-            };
+        // Obtener la tabla de películas
+        const tbody = document.getElementById('tbody');
+        tbody.innerHTML = ''; // Limpiar contenido existente
+
+        // Iterar sobre las películas y agregarlas a la tabla(sin mostrar el id)
+        data.forEach(pelicula => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td style="display: none;">${pelicula.idPelicula}</td>
+                <td>${pelicula.titulo}</td>
+                <td>${pelicula.idDirector}</td>
+                <td>${pelicula.duracion}</td>
+                <td>${pelicula.idGenero}</td>
+                <td>${pelicula.idEdad}</td>
+                <td>${pelicula.descripcion}</td>
+                <td>${pelicula.estreno ? 'Sí' : 'No'}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" onclick="editarPelicula(${pelicula.idPelicula})",>Editar</button>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarPelicula(${pelicula.idPelicula})">Eliminar</button>
+                </td>
+            `;
+            // Agregar fila a la tabla
+            tbody.appendChild(tr);
         });
     } catch (error) {
-        console.error("Error al registrar la baja de película:", error);
+        console.error('Error al mostrar las películas:', error);
     }
 }
 
-function eliminarPelicula(id) {
-    // si confirma
-    if (confirm('¿Estás seguro de eliminar esta película?')) {
-        fetch(`/api/peliculas/${id}`, { method: 'DELETE' }) // uso el metodo DELETE
-            .then(res => {
-                if (res.ok) {
-                    mostrarPeliculas(); // Actualizar la tabla
-                } else {
-                    alert('Error al eliminar la película.');
-                }
-            })
-            .catch(err => console.error('Error:', err));
+// logica del borrado logico de peliculas
+async function eliminarPelicula(idPelicula) {
+    // Confirmar si el usuario desea eliminar la película
+    const confirmacion = confirm('¿Estás seguro de que deseas eliminar esta película?');
+    if (!confirmacion) {
+        return;
+    }
+    try {
+        // Enviar solicitud DELETE al endpoint de eliminar película
+        const response = await fetch(`http://localhost:5171/api/Cine/DeletePelicula/${idPelicula}`, {
+            method: 'DELETE'
+        });
+
+        // Si la respuesta es exitosa, mostrar las películas actualizadas
+        if (response.ok) {
+            mostrarPeliculas();
+            // Si la respuesta no es exitosa, mostrar un mensaje de error
+        } else {
+            console.error('Error al eliminar la película');
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
 }
+
+// logica para agregar una pelicula
+async function agregarPelicula() {
+    // Obtener valores del formulario
+    const pelicula = {
+        titulo: document.getElementById('titulo').value,
+        idGenero: parseInt(document.getElementById('idGenero').value),
+        idEdad: parseInt(document.getElementById('idEdad').value),
+        duracion: parseInt(document.getElementById('duracion').value),
+        descripcion: document.getElementById('descripcion').value,
+        idDirector: parseInt(document.getElementById('idDirector').value),
+        estreno: document.getElementById('estreno').checked
+    };
+
+    try {
+        // Enviar solicitud POST al endpoint de agregar película
+        const response = await fetch('http://localhost:5171/api/Cine/registrarPelicula', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(pelicula)
+        });
+
+        // Si la respuesta no es exitosa, lanzar un error
+        if (!response.ok) {
+            throw new Error('Error al agregar la película');
+        }
+
+        // Mostrar mensaje de éxito y redirigir a la página principal
+        alert('Película agregada exitosamente');
+        window.location.href = 'main.html';
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al agregar la película');
+    }
+}
+
+
+// logica para editar una pelicula

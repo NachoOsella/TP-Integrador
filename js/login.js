@@ -1,43 +1,65 @@
-const loginForm = document.getElementById("loginForm");
-const usernameInput = document.getElementById("username");
-const passwordInput = document.getElementById("password");
-const errorMsg = document.getElementById("errorMsg");
-const togglePasswordCheckbox = document.getElementById("togglePasswordCheckbox");
-const registerButton = document.getElementById("registerButton");
+// login.js
+// Inicializar elementos del DOM
+const formularioLogin = document.getElementById('loginForm');
+const inputEmail = document.getElementById('email');
+const inputContraseña = document.getElementById('password');
+const mensajeError = document.getElementById('errorMsg');
+const checkboxMostrarContraseña = document.getElementById('togglePasswordCheckbox');
+const botonRegistro = document.getElementById('registerButton');
 
-loginForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Evita el envío del formulario
+// Alternar visibilidad de la contraseña
+checkboxMostrarContraseña.addEventListener('change', function () {
+    if (this.checked) {
+        inputContraseña.type = 'text';
+    } else {
+        inputContraseña.type = 'password';
+    }
+});
 
-    // Obtener los valores de los campos
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value.trim();
+// Manejar clic en el botón de registro
+botonRegistro.addEventListener('click', function (evento) {
+    evento.preventDefault();
+    window.location.href = 'registro.html';
+});
 
-    // Validación de campos vacíos
-    if (!username || !password) {
-        errorMsg.innerText = "Por favor, completa todos los campos.";
+// Envío del formulario de inicio de sesión
+formularioLogin.addEventListener('submit', function (evento) {
+    evento.preventDefault();
+
+    const mail = inputEmail.value.trim();
+    const contraseña = inputContraseña.value.trim();
+
+    if (!mail || !contraseña) {
+        mensajeError.innerText = 'Por favor, completa todos los campos.';
         return;
     }
 
-    // Simulación de validación de credenciales
-    if (username === "aa" && password === "aa") {
-        // Simulación de generación de token
-        const token = "token123456"; // Este sería el token que recibirías del servidor
-        localStorage.setItem("authToken", token); // Almacena el token en localStorage
-        // Redirigir a otra página o realizar otra acción
-        window.location.href = `main.html?username=${encodeURIComponent(username)}`;
-    } else {
-        errorMsg.innerText = "Credenciales inválidas. Intenta de nuevo.";
-    }
-});
-
-togglePasswordCheckbox.addEventListener("change", function () {
-    if (this.checked) {
-        passwordInput.type = "text"; // Muestra la contraseña haciendo que el tipo de input sea 'text'
-    } else {
-        passwordInput.type = "password"; // Oculta la contraseña haciendo que el tipo de input sea 'password'
-    }
-});
-
-registerButton.addEventListener("click", function () {
-    window.location.href = "registro.html";
+    fetch('http://localhost:5103/api/Clientes/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ mail, contraseña })
+    })
+        .then(respuesta => {
+            if (!respuesta.ok) {
+                return respuesta.text().then(texto => {
+                    throw new Error(`Error en la red: ${respuesta.status} ${respuesta.statusText} - ${texto}`);
+                });
+            }
+            return respuesta.json();
+        })
+        .then(datos => {
+            console.log('Respuesta:', datos); // Quitar en versión final
+            // Redirigir a la página principal si el inicio de sesión fue exitoso
+            if (datos.mensaje === "Inicio de sesión exitoso") {
+                window.location.href = `main.html?usuario=${encodeURIComponent(mail)}`;
+            } else {
+                mensajeError.innerText = 'Credenciales inválidas. Intenta de nuevo.';
+            }
+        })
+        .catch(error => {
+            mensajeError.innerText = 'Error al intentar iniciar sesión. Por favor, intenta más tarde.';
+            console.error('Error:', error);
+        });
 });

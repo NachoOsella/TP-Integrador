@@ -19,20 +19,33 @@
                 <input type="text" class="form-control" id="titulo" required>
             </div>
             <div class="mb-3">
-                <label for="director" class="form-label">Director</label>
-                <input type="text" class="form-control" id="director" required>
+                <label for="idGenero" class="form-label">ID Género</label>
+                <input type="number" class="form-control" id="idGenero" required>
             </div>
             <div class="mb-3">
-                <label for="genero" class="form-label">Género</label>
-                <input type="text" class="form-control" id="genero" required>
+                <label for="idEdad" class="form-label">ID Edad</label>
+                <input type="number" class="form-control" id="idEdad" required>
             </div>
             <div class="mb-3">
-                <label for="año" class="form-label">Año</label>
-                <input type="number" class="form-control" id="año" required>
+                <label for="duracion" class="form-label">Duración</label>
+                <input type="number" class="form-control" id="duracion" required>
             </div>
-            <button type="submit" class="btn btn-primary">Añadir</button>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="idDirector" class="form-label">ID Director</label>
+                <input type="number" class="form-control" id="idDirector" required>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="estreno">
+                <label class="form-check-label" for="estreno">Estreno</label>
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="agregarPelicula()">Añadir</button>
         </form>
     </div>
+    <script src="/js/dynamic_content.js"></script>
 </body>
 
 </html>

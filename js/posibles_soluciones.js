@@ -177,3 +177,9 @@ function eliminarPelicula(id) {
             .catch(err => console.error('Error:', err));
     }
 }
+
+
+// {
+//     "mail": "fajuthiago@example.com",
+//         "contraseña": "BailaVini"
+// }
