@@ -1,0 +1,115 @@
+/* styles_transacciones.css */
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+}
+
+#movieTitle {
+    color: #58a6ff;
+}
+
+#movieDescription p {
+    font-size: 1.2rem;
+    color: #c9d1d9;
+}
+
+#movieImage img {
+    max-width: 100%;
+    height: auto;
+}
+
+.transaction-form-container {
+    background-color: #161b22;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-form-container .form-label {
+    color: #58a6ff;
+}
+
+.transaction-form-container .form-control,
+.transaction-form-container .form-select {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    border-radius: 4px;
+}
+
+.transaction-form-container .form-control:focus,
+.transaction-form-container .form-select:focus {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+}
+
+.transaction-form-container .btn-primary {
+    background-color: #238636;
+    border-color: #238636;
+}
+
+.transaction-form-container .btn-primary:hover {
+    background-color: #2ea043;
+    border-color: #2c974b;
+}
+
+#movieDescription {
+    /* centrar el contenido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+/* estilos del menu */
+.navbar {
+    background-color: #0d1117;
+    /* Fondo del mismo color que el resto del archivo */
+    border-bottom: 1px solid #30363d;
+}
+
+.navbar-brand {
+    color: #58a6ff;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.navbar-nav .nav-link {
+    color: #c9d1d9;
+    margin-right: 15px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #58a6ff;
+}
+
+.navbar-toggler {
+    border-color: #30363d;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%2888, 166, 255, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.dropdown-menu {
+    background-color: #0d1117;
+    /* Fondo del mismo color que el resto del archivo */
+    border: 1px solid #30363d;
+}
+
+.dropdown-item {
+    color: #c9d1d9;
+}
+
+.dropdown-item:hover {
+    background-color: #30363d;
+    color: #58a6ff;
+}

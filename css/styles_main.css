@@ -25,7 +25,11 @@ body {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     margin-bottom: 20px;
     background-color: #161b22;
+    transition: transform 0.2s;
+}
 
+.card:hover {
+    transform: scale(1.05);
 }
 
 .card-body {
@@ -41,6 +45,12 @@ body {
 .card-text {
     font-size: 1rem;
     margin-bottom: 20px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 
@@ -188,46 +198,33 @@ form .form-control:focus {
 
 
 /* Estilos para la tabla */
-.table {
+table.table-dark {
     width: 100%;
-    margin-bottom: 1rem;
-    color: #c9d1d9;
-    background-color: #161b22;
     border-collapse: collapse;
+    background-color: #2c2c2c;
+    color: #ffffff;
 }
 
-.table th,
-.table td {
-    padding: 0.75rem;
-    vertical-align: top;
-    border-top: 1px solid #30363d;
+table.table-dark th,
+table.table-dark td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #444444;
 }
 
-.table thead th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #30363d;
+table.table-dark th {
+    background-color: #3a3a3a;
 }
 
-.table tbody+tbody {
-    border-top: 2px solid #30363d;
+table.table-dark tr:nth-child(even) {
+    background-color: #3a3a3a;
 }
 
-.table-dark {
-    color: #c9d1d9;
-    background-color: #161b22;
+table.table-dark tr:hover {
+    background-color: #444444;
 }
 
-.table-dark th,
-.table-dark td,
-.table-dark thead th {
-    border-color: #30363d;
-}
-
-.table-dark.table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-.table-dark.table-hover tbody tr:hover {
-    color: #c9d1d9;
-    background-color: rgba(255, 255, 255, 0.075);
+table.table-dark th,
+table.table-dark td {
+    border: none;
 }
