@@ -92,6 +92,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/script.js"></script>
+    <!-- javacrip para verificar si el usuario esta autenticado -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const isAuthenticated = localStorage.getItem('isAuthenticated');
+            if (isAuthenticated !== 'true') {
+                // Redirigir a la página de inicio de sesión si no está autenticado
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -1,4 +1,3 @@
-// login.js
 // Inicializar elementos del DOM
 const formularioLogin = document.getElementById('loginForm');
 const inputEmail = document.getElementById('email');
@@ -23,43 +22,58 @@ botonRegistro.addEventListener('click', function (evento) {
 });
 
 // Envío del formulario de inicio de sesión
+// Añade un evento al formulario de login que se ejecuta cuando se envía
 formularioLogin.addEventListener('submit', function (evento) {
+    // Previene el comportamiento por defecto del formulario (recargar la página)
     evento.preventDefault();
 
+    // Obtiene y limpia los valores de los campos de email y contraseña
     const mail = inputEmail.value.trim();
     const contraseña = inputContraseña.value.trim();
 
+    // Verifica si los campos están vacíos y muestra un mensaje de error si es así
     if (!mail || !contraseña) {
         mensajeError.innerText = 'Por favor, completa todos los campos.';
         return;
     }
 
+    // Realiza una solicitud POST a la API de login
     fetch('http://localhost:5103/api/Clientes/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ mail, contraseña })
+        body: JSON.stringify({ mail, contraseña }) // Envía los datos de login en el cuerpo de la solicitud
     })
         .then(respuesta => {
+            // Verifica si la respuesta no es exitosa
             if (!respuesta.ok) {
-                return respuesta.text().then(texto => {
-                    throw new Error(`Error en la red: ${respuesta.status} ${respuesta.statusText} - ${texto}`);
-                });
+                // Si el estado es 404, muestra un mensaje de credenciales inválidas
+                if (respuesta.status === 404) {
+                    mensajeError.innerText = 'Credenciales inválidas. Intenta de nuevo.';
+                } else {
+                    // Si hay otro error, lanza un error con el estado y el texto de la respuesta
+                    return respuesta.text().then(texto => {
+                        throw new Error(`Error en la red: ${respuesta.status} ${respuesta.statusText} - ${texto}`);
+                    });
+                }
+            } else {
+                // Si la respuesta es exitosa, convierte la respuesta a JSON
+                return respuesta.json();
             }
-            return respuesta.json();
         })
         .then(datos => {
-            console.log('Respuesta:', datos); // Quitar en versión final
-            // Redirigir a la página principal si el inicio de sesión fue exitoso
-            if (datos.mensaje === "Inicio de sesión exitoso") {
-                window.location.href = `main.html?usuario=${encodeURIComponent(mail)}`;
-            } else {
-                mensajeError.innerText = 'Credenciales inválidas. Intenta de nuevo.';
+            // Si los datos contienen un mensaje de éxito, guarda el estado de autenticación y redirige
+            if (datos && datos.mensaje === "Inicio de sesión exitoso") {
+                localStorage.setItem('isAuthenticated', 'true'); // Guarda el estado de autenticación en localStorage
+                window.location.href = `main.html?usuario=${encodeURIComponent(mail)}`; // Redirige a la página principal
             }
         })
         .catch(error => {
-            mensajeError.innerText = 'Error al intentar iniciar sesión. Por favor, intenta más tarde.';
-            console.error('Error:', error);
+            // Si ocurre un error y no hay un mensaje de error ya mostrado, muestra un mensaje genérico
+            if (!mensajeError.innerText) {
+                mensajeError.innerText = 'Error al intentar iniciar sesión. Por favor, intenta más tarde.';
+            }
+            console.error('Error:', error); // Muestra el error en la consola
         });
 });

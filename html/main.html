@@ -21,13 +21,13 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="main.html">Home</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" href="main.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="aboutus.html">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="logoutButton">Cerrar Sesion</a>
                 </li>
             </ul>
         </div>
@@ -72,9 +72,20 @@
     </div>
 
     <script src="/js/dynamic_content.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <!-- javacrip para verificar si el usuario esta autenticado y cerrar sesion -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const isAuthenticated = localStorage.getItem('isAuthenticated');
+            if (isAuthenticated !== 'true') {
+                // Redirigir a la página de inicio de sesión si no está autenticado
+                window.location.href = 'login.html';
+            }
+        });
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            localStorage.removeItem('isAuthenticated');
+            window.location.href = 'index.html';
+        });
+    </script>
 </body>
 
 </html>

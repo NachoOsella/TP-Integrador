@@ -16,7 +16,7 @@
             <h1>Bienvenido</h1>
             <p>En esta página encontrarás recursos sobre HTML, CSS y JavaScript usados en el proyecto. Explora las
                 secciones a continuación para aprender más.</p>
-            <a href="login.html" class="btn btn-primary">Ingresar como usuario autenticado</a>
+            <a href="login.html" class="btn btn-primary" id="authButton">Ingresar como usuario autenticado</a>
         </div>
     </main>
 
@@ -54,6 +54,20 @@
             </div>
         </div>
     </section>
+    <!-- javacrip para verificar si el usuario esta autenticado -->
+    <script>
+        document.getElementById('authButton').addEventListener('click', function (event) {
+            event.preventDefault();
+            const isAuthenticated = localStorage.getItem('isAuthenticated');
+            if (isAuthenticated === 'true') {
+                // Redirigir a la página principal si está autenticado
+                window.location.href = 'main.html';
+            } else {
+                // Redirigir a la página de inicio de sesión si no está autenticado
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
 </body>
 
 </html>

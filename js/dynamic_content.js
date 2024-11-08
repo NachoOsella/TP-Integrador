@@ -30,20 +30,20 @@ async function mostrarPeliculas() {
         const tbody = document.getElementById('tbody');
         tbody.innerHTML = ''; // Limpiar contenido existente
 
-        // Iterar sobre las películas y agregarlas a la tabla(sin mostrar el id)
+        // Iterar sobre las películas y agregarlas a la tabla (sin mostrar el id)
         data.forEach(pelicula => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td style="display: none;">${pelicula.idPelicula}</td>
                 <td>${pelicula.titulo}</td>
-                <td>${pelicula.idDirector}</td>
+                <td>${pelicula.directorNavigation.descripcion}</td>
                 <td>${pelicula.duracion}</td>
-                <td>${pelicula.idGenero}</td>
-                <td>${pelicula.idEdad}</td>
+                <td>${pelicula.generoNavigation.descripcion}</td>
+                <td>${pelicula.edadNavigation.clasificacion}</td>
                 <td>${pelicula.descripcion}</td>
                 <td>${pelicula.estreno ? 'Sí' : 'No'}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm" onclick="editarPelicula(${pelicula.idPelicula})",>Editar</button>
+                    <button class="btn btn-warning btn-sm" onclick="editarPelicula(${pelicula.idPelicula})">Editar</button>
                     <button class="btn btn-danger btn-sm" onclick="eliminarPelicula(${pelicula.idPelicula})">Eliminar</button>
                 </td>
             `;
