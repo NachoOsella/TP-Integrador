@@ -12,44 +12,8 @@
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center text-primary mb-4">Películas</h2>
-        <div class="row">
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="transaccionxpelicula.html?id=1">
-                        <img src="../img/t3.jpeg" class="card-img-top img-fluid" alt="TERRIFIER 3">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="transaccionxpelicula.html?id=2">
-                        <img src="../img/domingos.jpeg" class="card-img-top img-fluid"
-                            alt="Los Domingos Mueren Más Personas">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="transaccionxpelicula.html?id=3">
-                        <img src="../img/nts.jpeg" class="card-img-top img-fluid" alt="No Te Sueltes">
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card h-100">
-                    <a href="transaccionxpelicula.html?id=4">
-                        <img src="../img/norita.jpeg" class="card-img-top img-fluid" alt="Norita">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="../js/script.js" defer></script>
+    <div id="contenedor-peliculas" class="row"></div>
+    <script src="../js/dynamic_content.js"></script>
     <!-- javacrip para verificar si el usuario esta autenticado -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -59,6 +23,7 @@
                 window.location.href = 'index.html';
             }
         });
+        document.addEventListener('DOMContentLoaded', mostrarPeliculasEnTarjetas);
     </script>
 </body>
 

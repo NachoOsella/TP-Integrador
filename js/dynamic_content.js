@@ -44,7 +44,7 @@ async function mostrarPeliculas() {
                 <td>${pelicula.estreno ? 'Sí' : 'No'}</td>
                 <td>
                     <button class="btn btn-warning btn-sm" onclick="editarPelicula(${pelicula.idPelicula})">Editar</button>
-                    <button class="btn btn-danger btn-sm" onclick="eliminarPelicula(${pelicula.idPelicula})">Eliminar</button>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarPelicula(${pelicula.idPelicula})">Quitar de Cartelera</button>
                 </td>
             `;
             // Agregar fila a la tabla
@@ -118,4 +118,75 @@ async function agregarPelicula() {
     }
 }
 
-// logica para editar una pelicula
+
+
+// Función asincrónica para obtener las películas desde el servidor
+async function obtenerPeliculas() {
+    try {
+        // Imprime un mensaje en la consola indicando que se están obteniendo las películas
+        console.log('Fetching movies from the server...');
+
+        // Realiza una solicitud fetch a la API para obtener las películas
+        const response = await fetch('http://localhost:5171/api/Cine/GetPeliculas');
+
+        // Imprime el estado de la respuesta en la consola
+        console.log('Response status:', response.status);
+
+        // Verifica si la respuesta no es correcta (status no en el rango 200-299)
+        if (!response.ok) {
+            // Lanza un error si la respuesta no es correcta
+            throw new Error('Error al obtener las películas');
+        }
+
+        // Convierte la respuesta a formato JSON
+        const peliculas = await response.json();
+
+        // Retorna las películas obtenidas
+        return peliculas;
+    } catch (error) {
+        // Imprime el error en la consola
+        console.error('Error:', error);
+
+        // Retorna un arreglo vacío en caso de error
+        return [];
+    }
+}
+
+// Función para mostrar las películas en tarjetas
+async function mostrarPeliculasEnTarjetas() {
+    // Llama a la función obtenerPeliculas y almacena el resultado en la variable peliculas
+    const peliculas = await obtenerPeliculas();
+
+    // Obtiene el contenedor de películas del DOM
+    const contenedor = document.getElementById('contenedor-peliculas');
+
+    // Limpia el contenido del contenedor
+    contenedor.innerHTML = '';
+
+    // Itera sobre cada película obtenida
+    peliculas.forEach(pelicula => {
+        // Crea un nuevo elemento div para la tarjeta de la película
+        const tarjeta = document.createElement('div');
+
+        // Asigna la clase 'card' al div
+        tarjeta.className = 'card';
+
+        // Define el contenido HTML de la tarjeta
+        tarjeta.innerHTML = `
+            <img src="${pelicula.url}" class="card-img-top" alt="${pelicula.titulo}">
+            <div class="card-body">
+                <h5 class="card-title">${pelicula.titulo}</h5>
+                <p class="card-text">${pelicula.descripcion}</p>
+                <button class="btn btn-primary" onclick="venderTicket(${pelicula.idPelicula})">Vender Ticket</button>
+            </div>
+        `;
+
+        // Añade la tarjeta al contenedor de películas
+        contenedor.appendChild(tarjeta);
+    });
+}
+
+function venderTicket(idPelicula) {
+    // Redirigir a la página de transacción con el ID de la película
+    window.location.href = `transaccionxpelicula.html?id=${idPelicula}`;
+}
