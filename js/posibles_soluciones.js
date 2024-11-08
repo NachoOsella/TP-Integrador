@@ -183,3 +183,46 @@ function eliminarPelicula(id) {
 //     "mail": "fajuthiago@example.com",
 //         "contraseña": "BailaVini"
 // }
+
+
+
+
+// posible solucion para mostrar los combobox de genero, edad y director
+async function cargarDatosFormulario() {
+    try {
+        const response = await fetch('http://localhost:5069/api/Cine/GetDatosFormulario');
+        const datos = await response.json();
+
+        // Cargar géneros
+        const selectGenero = document.getElementById('idGenero');
+        datos.Generos.forEach(genero => {
+            const option = document.createElement('option');
+            option.value = genero.idGenero;
+            option.text = genero.descripcion;
+            selectGenero.appendChild(option);
+        });
+
+        // Cargar edades
+        const selectEdad = document.getElementById('idEdad');
+        datos.Edades.forEach(edad => {
+            const option = document.createElement('option');
+            option.value = edad.idEdad;
+            option.text = edad.clasificacion;
+            selectEdad.appendChild(option);
+        });
+
+        // Cargar directores
+        const selectDirector = document.getElementById('idDirector');
+        datos.Directores.forEach(director => {
+            const option = document.createElement('option');
+            option.value = director.idDirector;
+            option.text = director.nombre;
+            selectDirector.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error al cargar los datos del formulario:', error);
+    }
+}
+
+// Llamar a la función al cargar la página
+document.addEventListener('DOMContentLoaded', cargarDatosFormulario);

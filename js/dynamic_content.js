@@ -17,7 +17,7 @@ function cargar_vista(url, callback = null) { // parámetro opcional
 async function mostrarPeliculas() {
     try {
         // Enviar solicitud GET al endpoint de obtener películas
-        const response = await fetch('http://localhost:5171/api/Cine/GetPeliculas');
+        const response = await fetch('http://localhost:5069/api/Cine/GetPeliculas');
         // Si la respuesta no es exitosa, lanzar un error
         if (!response.ok) {
             throw new Error('Error en la solicitud: ' + response.statusText);
@@ -36,15 +36,15 @@ async function mostrarPeliculas() {
             tr.innerHTML = `
                 <td style="display: none;">${pelicula.idPelicula}</td>
                 <td>${pelicula.titulo}</td>
-                <td>${pelicula.directorNavigation.descripcion}</td>
+                <td>${pelicula.idDirectorNavigation.descripcion}</td>
                 <td>${pelicula.duracion}</td>
-                <td>${pelicula.generoNavigation.descripcion}</td>
-                <td>${pelicula.edadNavigation.clasificacion}</td>
+                <td>${pelicula.idGeneroNavigation.descripcion}</td>
+                <td>${pelicula.idEdadNavigation.clasificacion}</td>
                 <td>${pelicula.descripcion}</td>
                 <td>${pelicula.estreno ? 'Sí' : 'No'}</td>
                 <td>
                     <button class="btn btn-warning btn-sm" onclick="editarPelicula(${pelicula.idPelicula})">Editar</button>
-                    <button class="btn btn-danger btn-sm" onclick="eliminarPelicula(${pelicula.idPelicula})">Quitar de Cartelera</button>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarPelicula(${pelicula.idPelicula})">Remover</button>
                 </td>
             `;
             // Agregar fila a la tabla
@@ -64,7 +64,7 @@ async function eliminarPelicula(idPelicula) {
     }
     try {
         // Enviar solicitud DELETE al endpoint de eliminar película
-        const response = await fetch(`http://localhost:5171/api/Cine/DeletePelicula${idPelicula}`, {
+        const response = await fetch(`http://localhost:5171/api/Cine/DeletePelicula/${idPelicula}`, {
             method: 'DELETE'
         });
         console.log(response);
@@ -97,7 +97,7 @@ async function agregarPelicula() {
 
     try {
         // Enviar solicitud POST al endpoint de agregar película
-        const response = await fetch('http://localhost:5171/api/Cine/registrarPelicula', {
+        const response = await fetch('http://localhost:5069/api/Cine/RegistrarPelicula', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -125,7 +125,7 @@ async function agregarPelicula() {
 async function obtenerPeliculas() {
     try {
         // Realiza una solicitud fetch a la API para obtener las películas
-        const response = await fetch('http://localhost:5171/api/Cine/GetPeliculas');
+        const response = await fetch('http://localhost:5069/api/Cine/GetPeliculas');
         // Verifica si la respuesta no es correcta
         if (!response.ok) {
             throw new Error('Error al obtener las películas');
