@@ -91,6 +91,7 @@ async function agregarPelicula() {
         duracion: parseInt(document.getElementById('duracion').value),
         descripcion: document.getElementById('descripcion').value,
         idDirector: parseInt(document.getElementById('idDirector').value),
+        url: document.getElementById('url').value,
         estreno: document.getElementById('estreno').checked
     };
 
