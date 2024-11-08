@@ -123,18 +123,10 @@ async function agregarPelicula() {
 // Función asincrónica para obtener las películas desde el servidor
 async function obtenerPeliculas() {
     try {
-        // Imprime un mensaje en la consola indicando que se están obteniendo las películas
-        console.log('Fetching movies from the server...');
-
         // Realiza una solicitud fetch a la API para obtener las películas
         const response = await fetch('http://localhost:5171/api/Cine/GetPeliculas');
-
-        // Imprime el estado de la respuesta en la consola
-        console.log('Response status:', response.status);
-
-        // Verifica si la respuesta no es correcta (status no en el rango 200-299)
+        // Verifica si la respuesta no es correcta
         if (!response.ok) {
-            // Lanza un error si la respuesta no es correcta
             throw new Error('Error al obtener las películas');
         }
 
@@ -144,9 +136,7 @@ async function obtenerPeliculas() {
         // Retorna las películas obtenidas
         return peliculas;
     } catch (error) {
-        // Imprime el error en la consola
         console.error('Error:', error);
-
         // Retorna un arreglo vacío en caso de error
         return [];
     }
@@ -159,8 +149,6 @@ async function mostrarPeliculasEnTarjetas() {
 
     // Obtiene el contenedor de películas del DOM
     const contenedor = document.getElementById('contenedor-peliculas');
-
-    // Limpia el contenido del contenedor
     contenedor.innerHTML = '';
 
     // Itera sobre cada película obtenida
@@ -168,12 +156,14 @@ async function mostrarPeliculasEnTarjetas() {
         // Crea un nuevo elemento div para la tarjeta de la película
         const tarjeta = document.createElement('div');
 
-        // Asigna la clase 'card' al div
-        tarjeta.className = 'card';
+        // Asigna las clases 'card' y 'tarjeta-pelicula' al div
+        tarjeta.className = 'card tarjeta-pelicula';
 
         // Define el contenido HTML de la tarjeta
         tarjeta.innerHTML = `
-            <img src="${pelicula.url}" class="card-img-top" alt="${pelicula.titulo}">
+            <div class="card-img-container">
+                <img src="${pelicula.url}" class="card-img-top" alt="${pelicula.titulo}">
+            </div>
             <div class="card-body">
                 <h5 class="card-title">${pelicula.titulo}</h5>
                 <p class="card-text">${pelicula.descripcion}</p>
