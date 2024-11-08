@@ -64,9 +64,10 @@ async function eliminarPelicula(idPelicula) {
     }
     try {
         // Enviar solicitud DELETE al endpoint de eliminar película
-        const response = await fetch(`http://localhost:5171/api/Cine/DeletePelicula/${idPelicula}`, {
+        const response = await fetch(`http://localhost:5171/api/Cine/DeletePelicula${idPelicula}`, {
             method: 'DELETE'
         });
+        console.log(response);
 
         // Si la respuesta es exitosa, mostrar las películas actualizadas
         if (response.ok) {
@@ -108,15 +109,13 @@ async function agregarPelicula() {
             throw new Error('Error al agregar la película');
         }
 
-        // Mostrar mensaje de éxito y redirigir a la página principal
+        // Mostrar mensaje de éxito
         alert('Película agregada exitosamente');
-        window.location.href = 'main.html';
 
     } catch (error) {
         console.error('Error:', error);
         alert('Error al agregar la película');
     }
 }
-
 
 // logica para editar una pelicula
