@@ -64,7 +64,7 @@ async function eliminarPelicula(idPelicula) {
     }
     try {
         // Enviar solicitud DELETE al endpoint de eliminar película
-        const response = await fetch(`http://localhost:5171/api/Cine/DeletePelicula/${idPelicula}`, {
+        const response = await fetch(`http://localhost:5069/api/Cine/DeletePelicula/${idPelicula}`, {
             method: 'DELETE'
         });
         console.log(response);
