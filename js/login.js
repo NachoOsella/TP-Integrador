@@ -38,7 +38,7 @@ formularioLogin.addEventListener('submit', function (evento) {
     }
 
     // Realiza una solicitud POST a la API de login
-    fetch('http://localhost:5103/api/Clientes/login', {
+    fetch('http://localhost:5069/api/Cliente/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

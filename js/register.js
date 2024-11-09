@@ -30,7 +30,7 @@ document.getElementById("registerForm").addEventListener("submit", function (eve
     };
 
     // Enviar los datos a la API de registro
-    fetch('http://localhost:5103/api/Clientes/register', {
+    fetch('http://localhost:5069/api/Cliente/Register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
