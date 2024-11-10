@@ -13,18 +13,18 @@
 <body>
     <div class="container mt-5">
         <h2>Añadir una nueva película</h2>
-        <form>
+        <form onsubmit="agregarPelicula(); return false;">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título</label>
                 <input type="text" class="form-control" id="titulo" required>
             </div>
             <div class="mb-3">
-                <label for="idGenero" class="form-label">ID Género</label>
-                <input type="number" class="form-control" id="idGenero" required>
+                <label for="Genero" class="form-label">Género</label>
+                <select class="form-control" id="SelectGenero"></select>
             </div>
             <div class="mb-3">
-                <label for="idEdad" class="form-label">ID Edad</label>
-                <input type="number" class="form-control" id="idEdad" required>
+                <label for="Edad" class="form-label">Edad</label>
+                <select class="form-control" id="SelectEdad"></select>
             </div>
             <div class="mb-3">
                 <label for="duracion" class="form-label">Duración</label>
@@ -35,8 +35,8 @@
                 <textarea class="form-control" id="descripcion" required></textarea>
             </div>
             <div class="mb-3">
-                <label for="idDirector" class="form-label">ID Director</label>
-                <input type="number" class="form-control" id="idDirector" required>
+                <label for="Director" class="form-label">Director</label>
+                <select class="form-control" id="SelectDirector"></select>
             </div>
             <div class="mb-3">
                 <label for="idDirector" class="form-label">Url Imágen</label>
@@ -46,10 +46,11 @@
                 <input type="checkbox" class="form-check-input" id="estreno">
                 <label class="form-check-label" for="estreno">Estreno</label>
             </div>
-            <button type="submit" class="btn btn-primary" onclick="agregarPelicula()">Añadir</button>
+            <button type="submit" class="btn btn-primary">Añadir</button>
         </form>
     </div>
     <script src="/js/dynamic_content.js"></script>
+    <script src="/js/alta.js"></script>
     <!-- javacrip para verificar si el usuario esta autenticado -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
