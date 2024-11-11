@@ -38,6 +38,7 @@ async function mostrarPeliculas() {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td style="display: none;">${pelicula.idPelicula}</td>
+                <td><img src="${pelicula.url}" style="width: 50px;"></td>
                 <td>${pelicula.titulo}</td>
                 <td>${pelicula.idDirectorNavigation.descripcion}</td>
                 <td>${pelicula.duracion}</td>
@@ -116,9 +117,14 @@ async function agregarPelicula() {
             throw new Error('Error al agregar la película');
         }
 
-        // Mostrar mensaje de éxito y cargar la vista de alta con los campos vacíos
+        // Mostrar mensaje de éxito y vacias el formulario
         alert('Película agregada exitosamente');
-        cargar_vista('alta.html', mostrarPeliculas);
+        document.getElementById('titulo').value = '';
+        document.getElementById('duracion').value = '';
+        document.getElementById('descripcion').value = '';
+        document.getElementById('url').value = '';
+        document.getElementById('estreno').checked = false;
+
 
     } catch (error) {
         console.error('Error:', error);
