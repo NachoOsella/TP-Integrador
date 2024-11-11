@@ -4462,11 +4462,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nacho\\Downloads\\pruebas\\BackEndApi\\BackEndApi.csproj",
+      "projectUniqueName": "C:\\Users\\nacho\\Downloads\\pruebas\\TP-Integrador\\BackEndApi\\BackEndApi.csproj",
       "projectName": "BackEndApi",
-      "projectPath": "C:\\Users\\nacho\\Downloads\\pruebas\\BackEndApi\\BackEndApi.csproj",
+      "projectPath": "C:\\Users\\nacho\\Downloads\\pruebas\\TP-Integrador\\BackEndApi\\BackEndApi.csproj",
       "packagesPath": "C:\\Users\\nacho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nacho\\Downloads\\pruebas\\BackEndApi\\obj\\",
+      "outputPath": "C:\\Users\\nacho\\Downloads\\pruebas\\TP-Integrador\\BackEndApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nacho\\AppData\\Roaming\\NuGet\\NuGet.Config",

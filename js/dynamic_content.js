@@ -43,7 +43,7 @@ async function mostrarPeliculas() {
                 <td>${pelicula.duracion}</td>
                 <td>${pelicula.idGeneroNavigation.descripcion}</td>
                 <td>${pelicula.idEdadNavigation.clasificacion}</td>
-                <td>${pelicula.descripcion}</td>
+                <td style="display: none;">${pelicula.descripcion}</td>
                 <td>${pelicula.estreno ? 'Sí' : 'No'}</td>
                 <td>
                     <button class="btn btn-warning btn-sm" onclick="editarPelicula(${pelicula.idPelicula})">Editar</button>
@@ -122,7 +122,7 @@ async function agregarPelicula() {
 
     } catch (error) {
         console.error('Error:', error);
-        alert('Error al agregar la película');
+        alert('Error al agregar la película, Verifique que todos los campos estén llenos.');
     }
 }
 
@@ -174,7 +174,7 @@ async function editarPelicula(id) {
                     // Actualizar la lista de películas
                     cargar_vista('consultar.html', mostrarPeliculas);
                 } else {
-                    alert('Error al actualizar la película.');
+                    alert('Error al actualizar la película, Cargue todos los campos.');
                 }
             };
         });
