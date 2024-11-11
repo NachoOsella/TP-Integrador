@@ -1,7 +1,3 @@
-Aquí tienes el README actualizado con íconos específicos para las tecnologías mencionadas:
-
----
-
 # 🎬 Sistema de Gestión de Cine
 
 ## Descripción
