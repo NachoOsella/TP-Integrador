@@ -74,7 +74,7 @@ async function eliminarPelicula(idPelicula) {
 
         // Si la respuesta es exitosa, mostrar las películas actualizadas
         if (response.ok) {
-            mostrarPeliculas();
+            cargar_vista('consultar.html', mostrarPeliculas);
             // Si la respuesta no es exitosa, mostrar un mensaje de error
         } else {
             console.error('Error al eliminar la película');
@@ -118,12 +118,71 @@ async function agregarPelicula() {
 
         // Mostrar mensaje de éxito
         alert('Película agregada exitosamente');
+        cargar_vista('alta.html', mostrarPeliculas);
 
     } catch (error) {
         console.error('Error:', error);
         alert('Error al agregar la película');
     }
 }
+
+// Función para editar los datos de una película
+async function editarPelicula(id) {
+    try {
+        // Obtener datos de la película desde la API
+        const response = await fetch(`http://localhost:5069/api/Cine/GetPelicula/${id}`);
+        if (!response.ok) {
+            throw new Error('Error al obtener los datos de la película');
+        }
+        const peli = await response.json();
+        console.log('Película a editar:', peli);
+
+        // Cargar la vista de modificación
+        cargar_vista('modificacion.html', CargarDirectores, CargarEdades, CargarGeneros, () => {
+            // Rellenar los campos con los datos actuales
+            document.getElementById('titulo').value = peli.titulo;
+            document.getElementById('SelectGenero').value = peli.idGenero;
+            document.getElementById('SelectEdad').value = peli.idEdad;
+            document.getElementById('duracion').value = peli.duracion;
+            document.getElementById('descripcion').value = peli.descripcion;
+            document.getElementById('SelectDirector').value = peli.idDirector;
+            document.getElementById('url').value = peli.url;
+
+            // Evento para guardar los cambios
+            document.getElementById('guardar').onclick = async function () {
+                const updatedPeli = {
+                    titulo: document.getElementById('titulo').value,
+                    idGenero: document.getElementById('SelectGenero').value,
+                    idEdad: document.getElementById('SelectEdad').value,
+                    duracion: document.getElementById('duracion').value,
+                    descripcion: document.getElementById('descripcion').value,
+                    idDirector: document.getElementById('SelectDirector').value,
+                    url: document.getElementById('url').value
+                };
+
+                // Enviar los datos actualizados a la API
+                const result = await fetch(`http://localhost:5069/api/Cine/PutPelicula/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedPeli)
+                });
+
+                if (result.ok) {
+                    alert('Película actualizada correctamente');
+                    // Actualizar la lista de películas
+                    cargar_vista('consultar.html', mostrarPeliculas);
+                } else {
+                    alert('Error al actualizar la película.');
+                }
+            };
+        });
+    } catch (error) {
+        console.error("Error al editar la película:", error);
+    }
+}
+
 
 
 // Función asincrónica para obtener las películas desde el servidor
@@ -190,29 +249,32 @@ function venderTicket(idPelicula) {
 // Función para cargar los elementos del select de géneros
 async function CargarGeneros() {
     try {
-        console.log('Cargando géneros...');
+        // Realiza una solicitud a la API para obtener los géneros
         const response = await fetch('http://localhost:5069/api/Cine/GetGeneros');
         if (!response.ok) {
             throw new Error('Error al obtener los géneros');
         }
+        // Convierte la respuesta a JSON
         const generos = await response.json();
-        console.log('Géneros obtenidos:', generos);
+        // Obtiene el elemento select del DOM
         const selectGenero = document.getElementById('SelectGenero');
         if (!selectGenero) {
             throw new Error('Elemento selectGenero no encontrado');
         }
+        // Limpia las opciones existentes en el select
         selectGenero.innerHTML = '';
+        // Añade una opción por defecto
         const optionDefault = document.createElement('option');
         optionDefault.value = '';
         optionDefault.textContent = 'Seleccione un género';
         selectGenero.appendChild(optionDefault);
+        // Itera sobre los géneros obtenidos y añade cada uno como una opción en el select
         generos.forEach(genero => {
             const option = document.createElement('option');
             option.value = genero.idGenero;
             option.textContent = genero.descripcion;
             selectGenero.appendChild(option);
         });
-        console.log('Géneros cargados en el select');
     } catch (error) {
         console.error('Error:', error);
     }
@@ -221,29 +283,32 @@ async function CargarGeneros() {
 // Función para cargar los elementos del select de edades
 async function CargarEdades() {
     try {
-        console.log('Cargando edades...');
+        // Realiza una solicitud a la API para obtener las edades
         const response = await fetch('http://localhost:5069/api/Cine/GetEdades');
         if (!response.ok) {
             throw new Error('Error al obtener las edades');
         }
+        // Convierte la respuesta a JSON
         const edades = await response.json();
-        console.log('Edades obtenidas:', edades);
+        // Obtiene el elemento select del DOM
         const selectEdad = document.getElementById('SelectEdad');
         if (!selectEdad) {
             throw new Error('Elemento selectEdad no encontrado');
         }
+        // Limpia las opciones existentes en el select
         selectEdad.innerHTML = '';
+        // Añade una opción por defecto
         const optionDefault = document.createElement('option');
         optionDefault.value = '';
         optionDefault.textContent = 'Seleccione una edad';
         selectEdad.appendChild(optionDefault);
+        // Itera sobre las edades obtenidas y añade cada una como una opción en el select
         edades.forEach(edad => {
             const option = document.createElement('option');
             option.value = edad.idEdad;
             option.textContent = edad.clasificacion;
             selectEdad.appendChild(option);
         });
-        console.log('Edades cargadas en el select');
     } catch (error) {
         console.error('Error:', error);
     }
@@ -252,29 +317,32 @@ async function CargarEdades() {
 // Función para cargar los elementos del select de directores
 async function CargarDirectores() {
     try {
-        console.log('Cargando directores...');
+        // Realiza una solicitud a la API para obtener los directores
         const response = await fetch('http://localhost:5069/api/Cine/GetDirectores');
         if (!response.ok) {
             throw new Error('Error al obtener los directores');
         }
+        // Convierte la respuesta a JSON
         const directores = await response.json();
-        console.log('Directores obtenidos:', directores);
+        // Obtiene el elemento select del DOM
         const selectDirector = document.getElementById('SelectDirector');
         if (!selectDirector) {
             throw new Error('Elemento selectDirector no encontrado');
         }
+        // Limpia las opciones existentes en el select
         selectDirector.innerHTML = '';
+        // Añade una opción por defecto
         const optionDefault = document.createElement('option');
         optionDefault.value = '';
         optionDefault.textContent = 'Seleccione un director';
         selectDirector.appendChild(optionDefault);
+        // Itera sobre los directores obtenidos y añade cada uno como una opción en el select
         directores.forEach(director => {
             const option = document.createElement('option');
             option.value = director.idDirector;
             option.textContent = director.descripcion;
             selectDirector.appendChild(option);
         });
-        console.log('Directores cargados en el select');
     } catch (error) {
         console.error('Error:', error);
     }

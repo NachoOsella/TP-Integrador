@@ -228,3 +228,22 @@ table.table-dark th,
 table.table-dark td {
     border: none;
 }
+
+
+.tarjeta-pelicula {
+    max-width: 300px;
+    margin: 10px;
+}
+
+.tarjeta-pelicula .card-img-container {
+    width: 100%;
+}
+
+.tarjeta-pelicula .card-img-top {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin-top: 10px;
+    border-radius: 20px;
+}
