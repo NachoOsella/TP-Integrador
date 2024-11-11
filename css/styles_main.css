@@ -167,6 +167,10 @@ form .form-control:focus {
     margin-left: 20px;
 }
 
+.navbar-brand:hover {
+    color: #c9d1d9;
+}
+
 .navbar-nav .nav-link {
     color: #c9d1d9;
     margin-right: 15px;
@@ -237,6 +241,7 @@ table.table-dark td {
 }
 
 
+/*  Estilos para las tarjetas de películas */
 .tarjeta-pelicula {
     max-width: 300px;
     margin: 10px;
@@ -257,5 +262,4 @@ table.table-dark td {
 
 #contenedor-peliculas {
     margin-bottom: 50px;
-    /* Ajusta este valor según sea necesario */
 }
