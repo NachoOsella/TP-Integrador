@@ -147,7 +147,11 @@ async function editarPelicula(id) {
         console.log('Película a editar:', peli);
 
         // Cargar la vista de modificación
-        cargar_vista('modificacion.html', CargarDirectores, CargarEdades, CargarGeneros, () => {
+        cargar_vista('modificacion.html', async () => {
+            await CargarDirectores();
+            await CargarEdades();
+            await CargarGeneros();
+
             // Rellenar los campos con los datos actuales
             document.getElementById('titulo').value = peli.titulo;
             document.getElementById('SelectGenero').value = peli.idGenero;
@@ -371,8 +375,10 @@ async function venderTicket(idPelicula) {
         // cargar en el div la imagen y la descripcion de la pelicula
         const img = document.createElement('img');
         img.src = pelicula.url;
+        // estilos de la imagen
         img.style.width = '300px';
         img.style.borderRadius = '30px';
+        img.style.margin = '10px';
         document.getElementById('movieImage').appendChild(img);
         document.getElementById('movieDescription').textContent = pelicula.descripcion
 

@@ -1,22 +1,18 @@
 /* Estilos personalizados mínimos */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'JetBrains Mono', Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #0d1117;
-    /* Fondo oscuro */
     color: #c9d1d9;
-    /* Texto claro */
 }
 
 main {
     padding: 50px 0;
     background-color: #161b22;
-    /* Fondo del contenedor */
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Sombra para el contenedor */
     margin-top: 150px;
 }
 
@@ -25,10 +21,8 @@ main {
     margin: 0 auto;
     padding: 20px;
     background-color: #0d1117;
-    /* Fondo oscuro */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Sombra para el contenido */
 }
 
 h1 {
@@ -45,7 +39,6 @@ h1 {
 .card-img-overlay {
     background: rgba(0, 0, 0, 0.5);
     color: #c9d1d9;
-    /* Texto claro */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -75,7 +68,6 @@ h1 {
 
 .card-title {
     color: #c9d1d9;
-    /* Texto claro */
     transition: color 0.3s ease;
 }
 
@@ -94,13 +86,11 @@ h1 {
 
 .btn-primary {
     background-color: #238636;
-    /* Botón verde oscuro */
     border-color: #238636;
 }
 
 .btn-primary:hover {
     background-color: #2ea043;
-    /* Botón verde más claro al pasar el ratón */
     border-color: #2ea043;
 }
 

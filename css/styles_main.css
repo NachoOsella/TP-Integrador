@@ -2,7 +2,7 @@
 
 /* General styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'JetBrains Mono', Arial, sans-serif;
     background-color: #0d1117;
     color: #c9d1d9;
     margin: 0;
@@ -21,7 +21,7 @@ body {
 
 .card {
     border: 1px solid #30363d;
-    border-radius: 6px;
+    border-radius: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     margin-bottom: 20px;
     background-color: #161b22;
@@ -74,7 +74,7 @@ body {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: 6px;
+    border-radius: 10px;
     text-decoration: none;
 }
 
@@ -126,6 +126,7 @@ form {
     /* Color de fondo del formulario */
     padding: 20px;
     border-radius: 6px;
+    margin-bottom: 50px;
 }
 
 form .form-label {
@@ -212,8 +213,6 @@ form .form-control:focus {
 table.table-dark {
     width: 100%;
     border-collapse: collapse;
-    background-color: #2c2c2c;
-    color: #ffffff;
 }
 
 table.table-dark th,
@@ -227,37 +226,54 @@ table.table-dark th {
     background-color: #3a3a3a;
 }
 
-table.table-dark tr:nth-child(even) {
-    background-color: #3a3a3a;
-}
-
-table.table-dark tr:hover {
-    background-color: #444444;
-}
 
 table.table-dark th,
 table.table-dark td {
     border: none;
 }
 
+/* estilos de los botones de la tabla y que tengan el mismo tamaño */
+table.table-dark .btn {
+    width: 120px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 10px;
+    /* centrar el texto */
+    line-height: 0px;
+}
+
 
 /*  Estilos para las tarjetas de películas */
 .tarjeta-pelicula {
     max-width: 300px;
-    margin: 10px;
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
 }
 
 .tarjeta-pelicula .card-img-container {
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .tarjeta-pelicula .card-img-top {
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 400px;
+    object-fit: cover;
     display: block;
     margin-top: 10px;
     border-radius: 20px;
+}
+
+.tarjeta-pelicula .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 #contenedor-peliculas {
