@@ -75,13 +75,14 @@ BackEndApi/
 ---
 
 ## 👥 Equipo de Desarrollo
-[Listado de los nombres de los integrantes]
+- Osella Ignacio
+- Ledesma Fabrizio 
+- Jatuf Thiago
+- Rodríguez Pons Francisco
+- Matías Fernández
+- Juelve Nieva Pablo
+
 
 ## 📈 Estado del Proyecto
-En desarrollo - Versión 1.0
+En desarrollo - Versión 0.9
 
-## 📞 Contacto
-- **Email:** [email]
-- **GitHub:** [link]
-
----
