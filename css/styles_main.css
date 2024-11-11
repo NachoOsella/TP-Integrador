@@ -33,7 +33,14 @@ body {
 }
 
 .card-body {
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card-body .btn {
+    margin-top: auto;
 }
 
 .card-title {
@@ -246,4 +253,9 @@ table.table-dark td {
     display: block;
     margin-top: 10px;
     border-radius: 20px;
+}
+
+#contenedor-peliculas {
+    margin-bottom: 50px;
+    /* Ajusta este valor según sea necesario */
 }

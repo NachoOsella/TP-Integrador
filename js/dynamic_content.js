@@ -116,7 +116,7 @@ async function agregarPelicula() {
             throw new Error('Error al agregar la película');
         }
 
-        // Mostrar mensaje de éxito
+        // Mostrar mensaje de éxito y cargar la vista de alta con los campos vacíos
         alert('Película agregada exitosamente');
         cargar_vista('alta.html', mostrarPeliculas);
 
