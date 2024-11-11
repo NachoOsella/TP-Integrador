@@ -124,6 +124,9 @@ async function agregarPelicula() {
         document.getElementById('descripcion').value = '';
         document.getElementById('url').value = '';
         document.getElementById('estreno').checked = false;
+        document.getElementById('SelectGenero').value = '';
+        document.getElementById('SelectEdad').value = '';
+        document.getElementById('SelectDirector').value = '';
 
 
     } catch (error) {
