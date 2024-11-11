@@ -1,11 +1,12 @@
-function cargar_vista(url, ...callbacks) {
+// funcion para cargar un archivo html dinamicamente pasandole la url y las funciones que se quieran ejecutar
+function cargar_vista(url, ...callbacks) { // los tres puntos guardan los callbacks en un array
     fetch(url)
         .then((res) => res.text())
         .then((txt) => {
             const $panel_content = document.getElementById('dynamic-content');
             $panel_content.innerHTML = txt;
 
-            // Ejecutar todas las callbacks si se pasaron
+            // recorrer el array de callbacks y ejecutar cada uno si es una función
             callbacks.forEach(callback => {
                 if (typeof callback === 'function') {
                     callback();

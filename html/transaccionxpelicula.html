@@ -19,17 +19,18 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="main.html">Home</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" href="main.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="aboutus.html">About Us</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="logoutButton">Cerrar Sesion</a>
+                </li>
             </ul>
         </div>
     </nav>
+
 
     <div id="pageContainer" class="container mt-5">
         <!-- Movie Title -->
@@ -100,6 +101,10 @@
                 // Redirigir a la página de inicio de sesión si no está autenticado
                 window.location.href = 'index.html';
             }
+        });
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            localStorage.removeItem('isAuthenticated');
+            window.location.href = 'index.html';
         });
     </script>
 </body>
