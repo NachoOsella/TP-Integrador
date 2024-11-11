@@ -250,10 +250,10 @@ async function mostrarPeliculasEnTarjetas() {
     });
 }
 
-function venderTicket(idPelicula) {
-    // Redirigir a la página de transacción con el ID de la película
-    window.location.href = `transaccionxpelicula.html?id=${idPelicula}`;
-}
+// function venderTicket(idPelicula) {
+//     // Redirigir a la página de transacción con el ID de la película
+//     window.location.href = `transaccionxpelicula.html?id=${idPelicula}`;
+// }
 
 // Función para cargar los elementos del select de géneros
 async function CargarGeneros() {
@@ -354,5 +354,63 @@ async function CargarDirectores() {
         });
     } catch (error) {
         console.error('Error:', error);
+    }
+}
+
+
+
+// Función para vender tickets y cargar el formulario dinámicamente
+async function venderTicket(idPelicula) {
+    // Cargar la vista del formulario de transacción
+    cargar_vista('transaccionxpelicula.html', async () => {
+        // Obtener detalles de la película seleccionada
+        const pelicula = await obtenerPeliculaPorId(idPelicula);
+        // Rellenar los campos con la información de la película
+        document.getElementById('movieName').value = pelicula.titulo;
+
+        // cargar en el div la imagen y la descripcion de la pelicula
+        const img = document.createElement('img');
+        img.src = pelicula.url;
+        img.style.width = '300px';
+        img.style.borderRadius = '30px';
+        document.getElementById('movieImage').appendChild(img);
+        document.getElementById('movieDescription').textContent = pelicula.descripcion
+
+
+        // Configurar el evento de envío del formulario (TODO)
+        document.getElementById('transactionForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            // Obtener datos del formulario
+            const transaccion = {
+                idPelicula: idPelicula,
+                fechaHora: document.getElementById('dateTime').value,
+                codigoPromocion: document.getElementById('promoCode').value,
+                metodoPago: document.getElementById('paymentMethod').value,
+                cantidadBoletos: document.getElementById('ticketQuantity').value
+            };
+            // Enviar transacción al servidor (TODO)
+            const response = await fetch('http://localhost:5069/api/Cine/VenderTicket', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(transaccion)
+            });
+            if (response.ok) {
+                alert('Transacción realizada con éxito');
+            } else {
+                alert('Error al realizar la transacción');
+            }
+        });
+    });
+}
+
+// Función para obtener detalles de una película por ID
+async function obtenerPeliculaPorId(idPelicula) {
+    const response = await fetch(`http://localhost:5069/api/Cine/GetPelicula/${idPelicula}`);
+    if (response.ok) {
+        return await response.json();
+    } else {
+        throw new Error('Error al obtener la película');
     }
 }

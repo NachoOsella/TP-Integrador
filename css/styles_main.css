@@ -263,3 +263,66 @@ table.table-dark td {
 #contenedor-peliculas {
     margin-bottom: 50px;
 }
+
+
+/* estilos transaccion */
+#movieTitle {
+    color: #58a6ff;
+}
+
+#movieDescription p {
+    font-size: 1.2rem;
+    color: #c9d1d9;
+}
+
+#movieImage img {
+    max-width: 100%;
+    height: auto;
+}
+
+.transaction-form-container {
+    background-color: #161b22;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+}
+
+.transaction-form-container .form-label {
+    color: #58a6ff;
+}
+
+.transaction-form-container .form-control,
+.transaction-form-container .form-select {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    border-radius: 4px;
+}
+
+.transaction-form-container .form-control:focus,
+.transaction-form-container .form-select:focus {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25);
+}
+
+.transaction-form-container .btn-primary {
+    background-color: #238636;
+    border-color: #238636;
+}
+
+.transaction-form-container .btn-primary:hover {
+    background-color: #2ea043;
+    border-color: #2c974b;
+}
+
+#movieDescription {
+    /* centrar el contenido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
