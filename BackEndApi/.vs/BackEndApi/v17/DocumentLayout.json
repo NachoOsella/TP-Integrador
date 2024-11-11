@@ -1,0 +1,184 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\controllers\\cinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:controllers\\cinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\repositorys\\cinerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:repositorys\\cinerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\repositorys\\icinerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:repositorys\\icinerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\controllers\\ticketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:controllers\\ticketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\models\\cinedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:models\\cinedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\viewmodels\\loginvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:viewmodels\\loginvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|c:\\users\\fabri\\onedrive\\escritorio\\backendapi\\backendapi\\viewmodels\\clientevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29A1B9BF-7A82-4E31-97CA-F72AE0424BB9}|BackEndApi.csproj|solutionrelative:viewmodels\\clientevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CineRepository.cs",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Repositorys\\CineRepository.cs",
+              "RelativeDocumentMoniker": "Repositorys\\CineRepository.cs",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Repositorys\\CineRepository.cs",
+              "RelativeToolTip": "Repositorys\\CineRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBEAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T19:18:09.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ICineRepository.cs",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Repositorys\\ICineRepository.cs",
+              "RelativeDocumentMoniker": "Repositorys\\ICineRepository.cs",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Repositorys\\ICineRepository.cs",
+              "RelativeToolTip": "Repositorys\\ICineRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-10T19:17:07.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TicketController.cs",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Controllers\\TicketController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TicketController.cs",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Controllers\\TicketController.cs",
+              "RelativeToolTip": "Controllers\\TicketController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAkwBcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-09T04:07:02.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T18:54:38.632Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CineController.cs",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Controllers\\CineController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CineController.cs",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Controllers\\CineController.cs",
+              "RelativeToolTip": "Controllers\\CineController.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAwwHIAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T18:39:39.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-11-08T18:56:02.954Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CineDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Models\\CineDbContext.cs",
+              "RelativeDocumentMoniker": "Models\\CineDbContext.cs",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Models\\CineDbContext.cs",
+              "RelativeToolTip": "Models\\CineDbContext.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAA9wAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T18:06:09.499Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ClienteController.cs",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Controllers\\ClienteController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClienteController.cs",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\Controllers\\ClienteController.cs",
+              "RelativeToolTip": "Controllers\\ClienteController.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T19:53:09.221Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LoginVM.cs",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\ViewModels\\LoginVM.cs",
+              "RelativeDocumentMoniker": "ViewModels\\LoginVM.cs",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\ViewModels\\LoginVM.cs",
+              "RelativeToolTip": "ViewModels\\LoginVM.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T18:38:08.809Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ClienteVM.cs",
+              "DocumentMoniker": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\ViewModels\\ClienteVM.cs",
+              "RelativeDocumentMoniker": "ViewModels\\ClienteVM.cs",
+              "ToolTip": "C:\\Users\\fabri\\OneDrive\\Escritorio\\BackEndApi\\BackEndApi\\ViewModels\\ClienteVM.cs",
+              "RelativeToolTip": "ViewModels\\ClienteVM.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-08T18:38:25.308Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+[
+  {
+    "ContainingType": "BackEndApi.Controllers.TicketController",
+    "Method": "GetButacas",
+    "RelativePath": "api/Butcas/GetButacas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.CineController",
+    "Method": "Delete",
+    "RelativePath": "api/Cine/DeletePelicula/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.CineController",
+    "Method": "GetDirectores",
+    "RelativePath": "api/Cine/GetDirectores",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.CineController",
+    "Method": "GetEdades",
+    "RelativePath": "api/Cine/GetEdades",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.CineController",
+    "Method": "GetGeneros",
+    "RelativePath": "api/Cine/GetGeneros",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.CineController",
+    "Method": "Get",
+    "RelativePath": "api/Cine/GetPeliculas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.CineController",
+    "Method": "Put",
+    "RelativePath": "api/Cine/PutPelicula/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "opelicula",
+        "Type": "BackEndApi.Models.Pelicula",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.CineController",
+    "Method": "Post",
+    "RelativePath": "api/Cine/RegistrarPelicula",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pelicula",
+        "Type": "BackEndApi.Models.Pelicula",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.ClienteController",
+    "Method": "Login",
+    "RelativePath": "api/Cliente/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modelo",
+        "Type": "BackEndApi.ViewModels.LoginVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.ClienteController",
+    "Method": "Register",
+    "RelativePath": "api/Cliente/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modelo",
+        "Type": "BackEndApi.ViewModels.ClienteVM",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.TicketController",
+    "Method": "GetSalas",
+    "RelativePath": "api/Salas/GetSalas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.TicketController",
+    "Method": "Delete",
+    "RelativePath": "api/Ticket/DeleteTicket/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.TicketController",
+    "Method": "GetTickets",
+    "RelativePath": "api/Ticket/GetTickets",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BackEndApi.Controllers.TicketController",
+    "Method": "Post",
+    "RelativePath": "api/Ticket/RegistrarTicket",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ticket",
+        "Type": "BackEndApi.Models.Ticket",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

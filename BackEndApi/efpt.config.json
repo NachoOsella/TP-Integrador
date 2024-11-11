@@ -1,0 +1,134 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "CineDbContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "BackEndApi",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[Actores]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Barrios]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Butacas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Clientes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Detalle_Factura]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Directores]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Edades]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Facturas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Formas_de_pago]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Formato_Peliculas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Funciones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Generos_pelis]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Idioma]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Peli_Actor]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Peliculas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Promociones]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Reservas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Salas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Sucursales]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Tickets]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Tipo_Salas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Tipos_Butacas]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Tipos_Documentos]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
