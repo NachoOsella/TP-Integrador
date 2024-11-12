@@ -455,7 +455,6 @@ async function obtenerPeliculaPorId(idPelicula) {
         throw new Error('Error al obtener la película');
     }
 }
-
 async function loadPaymentMethods() {
     try {
         const response = await fetch('http://localhost:5069/api/Ticket/GetAllFormasDePago');
@@ -463,24 +462,24 @@ async function loadPaymentMethods() {
             throw new Error("Error al obtener las formas de pago");
         }
 
-        const paymentMethods = await response.json();
-        const paymentMethodSelect = document.getElementById("paymentMethod");
+        const formasDePago = await response.json();
+        const selectFormaDePago = document.getElementById("paymentMethod");
 
         // Limpiar las opciones actuales
-        paymentMethodSelect.innerHTML = "";
+        selectFormaDePago.innerHTML = "";
 
         // Agregar opción por defecto
-        const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.textContent = "Seleccione una forma de pago";
-        paymentMethodSelect.appendChild(defaultOption);
+        const opcionPorDefecto = document.createElement("option");
+        opcionPorDefecto.value = "";
+        opcionPorDefecto.textContent = "Seleccione una forma de pago";
+        selectFormaDePago.appendChild(opcionPorDefecto);
 
         // Agregar una opción por cada método de pago obtenido de la API
-        paymentMethods.forEach(method => {
-            const option = document.createElement("option");
-            option.value = method.idFormaDePago; // Asume que 'id' es el identificador del método de pago en la API
-            option.textContent = method.descripcion;
-            paymentMethodSelect.appendChild(option);
+        formasDePago.forEach(forma => {
+            const opcion = document.createElement("option");
+            opcion.value = forma.idFormaDePago; // Asume que 'id' es el identificador del método de pago en la API
+            opcion.textContent = forma.descripcion;
+            selectFormaDePago.appendChild(opcion);
         });
     } catch (error) {
         console.error("Error al cargar las formas de pago:", error);
@@ -495,24 +494,24 @@ async function loadShowNumbers() {
             throw new Error("Error al obtener los números de función");
         }
 
-        const showNumbers = await response.json();
-        const showNumberSelect = document.getElementById("showNumber");
+        const numerosDeFuncion = await response.json();
+        const selectNumeroDeFuncion = document.getElementById("showNumber");
 
         // Limpiar las opciones actuales
-        showNumberSelect.innerHTML = "";
+        selectNumeroDeFuncion.innerHTML = "";
 
         // Agregar opción por defecto
-        const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.textContent = "Seleccione un número de función";
-        showNumberSelect.appendChild(defaultOption);
+        const opcionPorDefecto = document.createElement("option");
+        opcionPorDefecto.value = "";
+        opcionPorDefecto.textContent = "Seleccione un número de función";
+        selectNumeroDeFuncion.appendChild(opcionPorDefecto);
 
         // Agregar una opción por cada número de función obtenido de la API
-        showNumbers.forEach(show => {
-            const option = document.createElement("option");
-            option.value = show.nroFuncion;
-            option.textContent = show.dia;
-            showNumberSelect.appendChild(option);
+        numerosDeFuncion.forEach(funcion => {
+            const opcion = document.createElement("option");
+            opcion.value = funcion.nroFuncion;
+            opcion.textContent = funcion.dia;
+            selectNumeroDeFuncion.appendChild(opcion);
         });
     } catch (error) {
         console.error("Error al cargar los números de función:", error);
@@ -527,29 +526,28 @@ async function loadPromoCodes() {
             throw new Error("Error al obtener los códigos de promoción");
         }
 
-        const promoCodes = await response.json();
-        const promoCodeSelect = document.getElementById("promoCode");
+        const codigosDePromocion = await response.json();
+        const selectCodigoDePromocion = document.getElementById("promoCode");
 
         // Limpiar las opciones actuales
-        promoCodeSelect.innerHTML = "";
+        selectCodigoDePromocion.innerHTML = "";
 
         // Agregar opción por defecto
-        const defaultOption = document.createElement("option");
-        defaultOption.value = "";
-        defaultOption.textContent = "Seleccione un código de promoción";
-        promoCodeSelect.appendChild(defaultOption);
+        const opcionPorDefecto = document.createElement("option");
+        opcionPorDefecto.value = "";
+        opcionPorDefecto.textContent = "Seleccione un código de promoción";
+        selectCodigoDePromocion.appendChild(opcionPorDefecto);
 
         // Agregar una opción por cada código de promoción obtenido de la API
-        promoCodes.forEach(code => {
-            const option = document.createElement("option");
-            option.value = code.codPromocion; // Asume que 'id' es el identificador del código de promoción en la API
-            option.textContent = code.descripcion; // Asume que 'code' es el código de promoción
-            promoCodeSelect.appendChild(option);
+        codigosDePromocion.forEach(codigo => {
+            const opcion = document.createElement("option");
+            opcion.value = codigo.codPromocion; // Asume que 'id' es el identificador del código de promoción en la API
+            opcion.textContent = codigo.descripcion; // Asume que 'code' es el código de promoción
+            selectCodigoDePromocion.appendChild(opcion);
         });
     } catch (error) {
         console.error("Error al cargar los códigos de promoción:", error);
     }
 }
-
 
 
