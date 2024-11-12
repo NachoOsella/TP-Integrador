@@ -254,10 +254,6 @@ async function mostrarPeliculasEnTarjetas() {
     });
 }
 
-// function venderTicket(idPelicula) {
-//     // Redirigir a la página de transacción con el ID de la película
-//     window.location.href = `transaccionxpelicula.html?id=${idPelicula}`;
-// }
 
 // Función para cargar los elementos del select de géneros
 async function CargarGeneros() {
@@ -363,49 +359,65 @@ async function CargarDirectores() {
 
 
 
-// Función para vender tickets y cargar el formulario dinámicamente
 async function venderTicket(idPelicula) {
     // Cargar la vista del formulario de transacción
     cargar_vista('transaccionxpelicula.html', async () => {
+        await loadPaymentMethods();
+        await loadShowNumbers();
+        await loadPromoCodes();
+
         // Obtener detalles de la película seleccionada
         const pelicula = await obtenerPeliculaPorId(idPelicula);
+
         // Rellenar los campos con la información de la película
         document.getElementById('movieName').value = pelicula.titulo;
 
-        // cargar en el div la imagen y la descripcion de la pelicula
+        // Cargar en el div la imagen y la descripción de la película
         const img = document.createElement('img');
         img.src = pelicula.url;
-        // estilos de la imagen
         img.style.width = '300px';
         img.style.borderRadius = '30px';
         img.style.margin = '10px';
         document.getElementById('movieImage').appendChild(img);
-        document.getElementById('movieDescription').textContent = pelicula.descripcion
+        document.getElementById('movieDescription').textContent = pelicula.descripcion;
 
-
-        // Configurar el evento de envío del formulario (TODO)
+        // Configurar el evento de envío del formulario
         document.getElementById('transactionForm').addEventListener('submit', async function (event) {
             event.preventDefault();
+
             // Obtener datos del formulario
             const transaccion = {
-                idPelicula: idPelicula,
-                fechaHora: document.getElementById('dateTime').value,
-                codigoPromocion: document.getElementById('promoCode').value,
-                metodoPago: document.getElementById('paymentMethod').value,
-                cantidadBoletos: document.getElementById('ticketQuantity').value
+                monto: document.getElementById('Price').value, // Asegúrate de que el valor sea una cadena que represente una cantidad de dinero
+                idFormaDePago: parseInt(document.getElementById('paymentMethod').value),
+                detalleFacturas: [
+                    {
+                        nroFuncion: parseInt(document.getElementById('showNumber').value),
+                        codPromocion: parseInt(document.getElementById('promoCode').value)
+                    }
+                ]
             };
-            // Enviar transacción al servidor (TODO)
-            const response = await fetch('http://localhost:5069/api/Cine/VenderTicket', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(transaccion)
-            });
-            if (response.ok) {
-                alert('Transacción realizada con éxito');
-            } else {
-                alert('Error al realizar la transacción');
+            console.log('Datos:', transaccion);
+
+            try {
+                // Enviar transacción al servidor
+                const response = await fetch('http://localhost:5069/api/Ticket/RegistrarTransaccion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(transaccion)
+                });
+
+                if (response.ok) {
+                    alert('Transacción realizada con éxito');
+                } else {
+                    const errorData = await response.json();
+                    console.error('Error al realizar la transacción:', errorData);
+                    alert('Error al realizar la transacción: ' + JSON.stringify(errorData.errors));
+                }
+            } catch (error) {
+                console.error('Error al realizar la transacción:', error);
+                alert('Error al realizar la transacción: ' + error.message);
             }
         });
     });
@@ -420,3 +432,102 @@ async function obtenerPeliculaPorId(idPelicula) {
         throw new Error('Error al obtener la película');
     }
 }
+
+async function loadPaymentMethods() {
+    try {
+        const response = await fetch('http://localhost:5069/api/Ticket/GetAllFormasDePago');
+        if (!response.ok) {
+            throw new Error("Error al obtener las formas de pago");
+        }
+
+        const paymentMethods = await response.json();
+        const paymentMethodSelect = document.getElementById("paymentMethod");
+
+        // Limpiar las opciones actuales
+        paymentMethodSelect.innerHTML = "";
+
+        // Agregar opción por defecto
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Seleccione una forma de pago";
+        paymentMethodSelect.appendChild(defaultOption);
+
+        // Agregar una opción por cada método de pago obtenido de la API
+        paymentMethods.forEach(method => {
+            const option = document.createElement("option");
+            option.value = method.idFormaDePago; // Asume que 'id' es el identificador del método de pago en la API
+            option.textContent = method.descripcion;
+            paymentMethodSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error al cargar las formas de pago:", error);
+    }
+}
+
+// Función para cargar números de función desde la API
+async function loadShowNumbers() {
+    try {
+        const response = await fetch('http://localhost:5069/api/Cine/GetFunciones');
+        if (!response.ok) {
+            throw new Error("Error al obtener los números de función");
+        }
+
+        const showNumbers = await response.json();
+        const showNumberSelect = document.getElementById("showNumber");
+
+        // Limpiar las opciones actuales
+        showNumberSelect.innerHTML = "";
+
+        // Agregar opción por defecto
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Seleccione un número de función";
+        showNumberSelect.appendChild(defaultOption);
+
+        // Agregar una opción por cada número de función obtenido de la API
+        showNumbers.forEach(show => {
+            const option = document.createElement("option");
+            option.value = show.nroFuncion;
+            option.textContent = show.dia; 
+            showNumberSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error al cargar los números de función:", error);
+    }
+}
+
+// Función para cargar códigos de promoción desde la API
+async function loadPromoCodes() {
+    try {
+        const response = await fetch('http://localhost:5069/api/Ticket/GetAllPromociones');
+        if (!response.ok) {
+            throw new Error("Error al obtener los códigos de promoción");
+        }
+
+        const promoCodes = await response.json();
+        const promoCodeSelect = document.getElementById("promoCode");
+
+        // Limpiar las opciones actuales
+        promoCodeSelect.innerHTML = "";
+
+        // Agregar opción por defecto
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Seleccione un código de promoción";
+        promoCodeSelect.appendChild(defaultOption);
+
+        // Agregar una opción por cada código de promoción obtenido de la API
+        promoCodes.forEach(code => {
+            const option = document.createElement("option");
+            option.value = code.codPromocion; // Asume que 'id' es el identificador del código de promoción en la API
+            option.textContent = code.descripcion; // Asume que 'code' es el código de promoción
+            promoCodeSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error al cargar los códigos de promoción:", error);
+    }
+}
+
+
+
+

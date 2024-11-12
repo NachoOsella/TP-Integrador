@@ -106,6 +106,15 @@ namespace BackEndApi.Repositorys
             return _context.Funciones.Where(f => f.Dia >= DateTime.Now).ToList();
         }
 
+        public List<FormasDePago> GetAllFormasDePago()
+        {
+            return _context.FormasDePagos.ToList();
+        }
+
+        public List<Promocione> GetAllPromociones()
+        {
+            return _context.Promociones.ToList();
+        }
 
         public bool Update(int id, Pelicula opelicula) // update de nueva descripcion de pelicula
         {

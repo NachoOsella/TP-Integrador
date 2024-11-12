@@ -64,5 +64,22 @@ namespace BackEndApi.Controllers
                 return BadRequest("Error al registrar la transacción: " + ex.Message);
             }
         }
+
+        // getall formas de pago
+        [HttpGet("GetAllFormasDePago")]
+        public IActionResult GetAllFormasDePago()
+        {
+            var formasDePago = _repository.GetAllFormasDePago();
+            return Ok(formasDePago);
+        }
+
+        // getall promociones
+        [HttpGet("GetAllPromociones")]
+        public IActionResult GetAllPromociones()
+        {
+            var promociones = _repository.GetAllPromociones();
+            return Ok(promociones);
+        }
+
     }
 }

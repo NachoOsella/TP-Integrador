@@ -19,6 +19,8 @@ namespace BackEndApi.Repositorys
         bool Update(int id, Pelicula oPelicula);  //para modificar una descripcion 
         bool Delete(int id); // para dar de baja una pelicula
         List<Funcione> GetAllFunciones(); // para listar todas las funciones
+        List<FormasDePago> GetAllFormasDePago(); // para listar todas las formas de pago
+        List<Promocione> GetAllPromociones(); // para listar todas las promociones
 
         //-Transaccion
         List<Ticket> GetTickets(); // para listar todos los tickets

@@ -31,23 +31,30 @@
             <!-- TODO: USAR DATOS REALES -->
             <div class="transaction-form-container">
                 <form id="transactionForm">
+
                     <div class="mb-3">
                         <label for="movieName" class="form-label">Película Seleccionada</label>
                         <input type="text" id="movieName" name="movieName" class="form-control" disabled>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="paymentMethod" class="form-label">Método de Pago</label>
+                        <select id="paymentMethod" name="paymentMethod" class="form-select" required></select>
+                    </div>
+
                     <div class="mb-3">
                         <label for="Price" class="form-label">Valor del Ticket</label>
                         <input type="text" id="Price" name="totalPrice" class="form-control">
                     </div>
 
                     <div class="mb-3">
-                        <label for="promoCode" class="form-label">Código de Promoción</label>
-                        <input type="text" id="promoCode" name="promoCode" class="form-control">
+                        <label for="promoCode" class="form-label">Promociones</label>
+                        <select id="promoCode" name="promoCode" class="form-select" required></select>
                     </div>
 
                     <div class="mb-3">
-                        <label for="paymentMethod" class="form-label">Método de Pago</label>
-                        <select id="paymentMethod" name="paymentMethod" class="form-select" required></select>
+                        <label for="showNumber" class="form-label">Número de Función</label>
+                        <select id="showNumber" name="showNumber" class="form-select" required></select>
                     </div>
 
                     <div class="mb-3">
@@ -69,8 +76,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="../js/transaccion.js"></script>
     <!-- javacrip para verificar si el usuario esta autenticado -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
