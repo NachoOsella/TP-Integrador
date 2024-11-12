@@ -371,9 +371,9 @@ function calcularMontoFinal() {
 async function venderTicket(idPelicula) {
     // Cargar la vista del formulario de transacción
     cargar_vista('transaccionxpelicula.html', async () => {
-        await loadPaymentMethods();
-        await loadShowNumbers();
-        await loadPromoCodes();
+        await CargarFunciones();
+        await CargarMetodosDePago();
+        await CargarPromos();
 
         // Obtener detalles de la película seleccionada
         const pelicula = await obtenerPeliculaPorId(idPelicula);
@@ -455,7 +455,7 @@ async function obtenerPeliculaPorId(idPelicula) {
         throw new Error('Error al obtener la película');
     }
 }
-async function loadPaymentMethods() {
+async function CargarMetodosDePago() {
     try {
         const response = await fetch('http://localhost:5069/api/Ticket/GetAllFormasDePago');
         if (!response.ok) {
@@ -486,8 +486,8 @@ async function loadPaymentMethods() {
     }
 }
 
-// Función para cargar números de función desde la API
-async function loadShowNumbers() {
+
+async function CargarFunciones() {
     try {
         const response = await fetch('http://localhost:5069/api/Cine/GetFunciones');
         if (!response.ok) {
@@ -519,7 +519,7 @@ async function loadShowNumbers() {
 }
 
 // Función para cargar códigos de promoción desde la API
-async function loadPromoCodes() {
+async function CargarPromos() {
     try {
         const response = await fetch('http://localhost:5069/api/Ticket/GetAllPromociones');
         if (!response.ok) {

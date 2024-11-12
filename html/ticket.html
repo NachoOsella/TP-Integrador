@@ -28,7 +28,7 @@
     </div>
 
     <script>
-        // Función para cargar los datos del ticket
+        // Obtener los datos de la URL y cargarlos en el ticket
         function cargarDatosTicket() {
             const urlParams = new URLSearchParams(window.location.search);
             document.getElementById('ticket-movieName').textContent = urlParams.get('movieName');
@@ -40,7 +40,6 @@
             document.getElementById('ticket-totalPrice').textContent = urlParams.get('totalPrice');
         }
 
-        // Llamar a la función para cargar los datos cuando se cargue la página
         window.onload = cargarDatosTicket;
     </script>
 </body>
