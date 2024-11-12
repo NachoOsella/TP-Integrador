@@ -84,5 +84,6 @@ BackEndApi/
 
 
 ## 📈 Estado del Proyecto
-En desarrollo - Versión 0.9
+TERMINADO- VERSION 1.0
+
 
