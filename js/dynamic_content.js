@@ -488,7 +488,7 @@ async function loadShowNumbers() {
         showNumbers.forEach(show => {
             const option = document.createElement("option");
             option.value = show.nroFuncion;
-            option.textContent = show.dia; 
+            option.textContent = show.dia;
             showNumberSelect.appendChild(option);
         });
     } catch (error) {
