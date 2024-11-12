@@ -32,7 +32,7 @@ namespace BackEndApi.Controllers
                 var factura = new Factura
                 {
                     Monto = facturaDto.Monto,
-                    Fecha = facturaDto.Fecha,
+                    Fecha = DateTime.Now,
                     IdFormaDePago = facturaDto.IdFormaDePago,
                     IdCliente = facturaDto.IdCliente
                 };

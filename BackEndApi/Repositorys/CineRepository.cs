@@ -99,12 +99,14 @@ namespace BackEndApi.Repositorys
         {
             return _context.GenerosPelis.ToList();
         }
+
         public List<Funcione> GetAllFunciones()
         {
-            var now = DateTime.Now;
-            // guardar la hora actual
-            return _context.Funciones.Where(f => f.Dia >= now).ToList();
+            // retornar todas las funciones que tengan el dia de hoy o en adelante
+            return _context.Funciones.Where(f => f.Dia >= DateTime.Now).ToList();
         }
+
+
         public bool Update(int id, Pelicula opelicula) // update de nueva descripcion de pelicula
         {
 

@@ -162,18 +162,21 @@ namespace BackEndApi.Controllers
             }
         }
 
-        // getall funciones
         [HttpGet("GetFunciones")]
         public IActionResult GetFunciones()
         {
             try
             {
-                return Ok(_repository.GetAllFunciones());
+                var funciones = _repository.GetAllFunciones();
+                if (funciones == null || !funciones.Any())
+                {
+                    return NotFound("No se encontraron funciones disponibles.");
+                }
+                return Ok(funciones);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                return StatusCode(500, "Ha ocurrido un error interno");
+                return StatusCode(500, "Ha ocurrido un error interno: " + ex.Message);
             }
         }
     }
