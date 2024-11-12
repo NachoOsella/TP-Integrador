@@ -21,14 +21,14 @@ namespace BackEndApi.Controllers
             _context = context;
         }
 
-        // Métodos existentes...
+        // Registrar transacción
         [HttpPost("RegistrarTransaccion")]
         public async Task<IActionResult> RegistrarTransaccion([FromBody] FacturaDTO facturaDto)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                // Crear la entidad Factura a partir del DTO
+                // con los datos de la factura, crear una nueva factura
                 var factura = new Factura
                 {
                     Monto = facturaDto.Monto,
@@ -37,11 +37,11 @@ namespace BackEndApi.Controllers
                     IdCliente = facturaDto.IdCliente
                 };
 
-                // Agregar la factura al contexto
+                // Agregar la factura al contexto y guardar los cambios
                 _context.Facturas.Add(factura);
                 await _context.SaveChangesAsync();
 
-                // Iterar sobre los detalles y agregarlos
+                // Por cada detalle de factura en la lista de detalles de factura, crear un nuevo detalle de factura
                 foreach (var detalleDto in facturaDto.DetalleFacturas)
                 {
                     var detalle = new DetalleFactura
@@ -50,10 +50,13 @@ namespace BackEndApi.Controllers
                         NroFuncion = detalleDto.NroFuncion,
                         CodPromocion = detalleDto.CodPromocion
                     };
+                    // Agregar el detalle de factura al contexto
                     _context.DetalleFacturas.Add(detalle);
                 }
 
+                // Guardar los cambios
                 await _context.SaveChangesAsync();
+                // Commit de la transacción
                 await transaction.CommitAsync();
 
                 return Ok("Transacción registrada con éxito");

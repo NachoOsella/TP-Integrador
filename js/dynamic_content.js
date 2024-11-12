@@ -1,12 +1,12 @@
-// funcion para cargar un archivo html dinamicamente pasandole la url y las funciones que se quieran ejecutar
-function cargar_vista(url, ...callbacks) { // los tres puntos guardan los callbacks en un array
+// Función para cargar un archivo HTML con la URL y las funciones que quieras ejecutar después
+function cargar_vista(url, ...callbacks) { // Los tres puntos guardan las funciones en un array
     fetch(url)
         .then((res) => res.text())
         .then((txt) => {
             const $panel_content = document.getElementById('dynamic-content');
             $panel_content.innerHTML = txt;
 
-            // recorrer el array de callbacks y ejecutar cada uno si es una función
+            // Ejecutar cada función del array si es una función
             callbacks.forEach(callback => {
                 if (typeof callback === 'function') {
                     callback();
@@ -16,24 +16,21 @@ function cargar_vista(url, ...callbacks) { // los tres puntos guardan los callba
         .catch((error) => console.error('Error al cargar la vista:', error));
 }
 
-
+// Función para mostrar las películas
 async function mostrarPeliculas() {
     try {
-        // Enviar solicitud GET al endpoint de obtener películas
         const response = await fetch('http://localhost:5069/api/Cine/GetPeliculas');
-        // Si la respuesta no es exitosa, lanzar un error
         if (!response.ok) {
             throw new Error('Error en la solicitud: ' + response.statusText);
         }
 
-        // Convertir la respuesta a JSON
         const data = await response.json();
 
-        // Obtener la tabla de películas
+        // Obtener la tabla de películas y limpiar el contenido existente
         const tbody = document.getElementById('tbody');
-        tbody.innerHTML = ''; // Limpiar contenido existente
+        tbody.innerHTML = '';
 
-        // Iterar sobre las películas y agregarlas a la tabla (sin mostrar el id)
+        // Agregar cada película a la tabla (sin mostrar el id)
         data.forEach(pelicula => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -59,24 +56,21 @@ async function mostrarPeliculas() {
     }
 }
 
-// logica del borrado logico de peliculas
+// Función para eliminar una película
 async function eliminarPelicula(idPelicula) {
-    // Confirmar si el usuario desea eliminar la película
+    // Confirmar si el usuario quiere eliminar la película
     const confirmacion = confirm('¿Estás seguro de que deseas eliminar esta película?');
     if (!confirmacion) {
         return;
     }
     try {
-        // Enviar solicitud DELETE al endpoint de eliminar película
         const response = await fetch(`http://localhost:5069/api/Cine/DeletePelicula/${idPelicula}`, {
             method: 'DELETE'
         });
         console.log(response);
 
-        // Si la respuesta es exitosa, mostrar las películas actualizadas
         if (response.ok) {
             cargar_vista('consultar.html', mostrarPeliculas);
-            // Si la respuesta no es exitosa, mostrar un mensaje de error
         } else {
             console.error('Error al eliminar la película');
         }
@@ -85,6 +79,7 @@ async function eliminarPelicula(idPelicula) {
     }
 }
 
+// Función para agregar una película
 async function agregarPelicula() {
     // Obtener valores del formulario
     const pelicula = {
@@ -101,7 +96,6 @@ async function agregarPelicula() {
     console.log('Datos de la película:', pelicula);
 
     try {
-        // Enviar solicitud POST al endpoint de agregar película
         const response = await fetch('http://localhost:5069/api/Cine/RegistrarPelicula', {
             method: 'POST',
             headers: {
@@ -110,14 +104,12 @@ async function agregarPelicula() {
             body: JSON.stringify(pelicula)
         });
 
-        // Si la respuesta no es exitosa, lanzar un error
         if (!response.ok) {
             const errorData = await response.json();
             console.error('Error en la respuesta:', errorData);
             throw new Error('Error al agregar la película');
         }
 
-        // Mostrar mensaje de éxito y vacias el formulario
         alert('Película agregada exitosamente');
         document.getElementById('titulo').value = '';
         document.getElementById('duracion').value = '';
@@ -128,7 +120,6 @@ async function agregarPelicula() {
         document.getElementById('SelectEdad').value = '';
         document.getElementById('SelectDirector').value = '';
 
-
     } catch (error) {
         console.error('Error:', error);
         alert('Error al agregar la película, Verifique que todos los campos estén llenos.');
@@ -138,7 +129,6 @@ async function agregarPelicula() {
 // Función para editar los datos de una película
 async function editarPelicula(id) {
     try {
-        // Obtener datos de la película desde la API
         const response = await fetch(`http://localhost:5069/api/Cine/GetPelicula/${id}`);
         if (!response.ok) {
             throw new Error('Error al obtener los datos de la película');
@@ -148,6 +138,7 @@ async function editarPelicula(id) {
 
         // Cargar la vista de modificación
         cargar_vista('modificacion.html', async () => {
+            // Cargar funciones para los select
             await CargarDirectores();
             await CargarEdades();
             await CargarGeneros();
@@ -201,21 +192,17 @@ async function editarPelicula(id) {
 // Función asincrónica para obtener las películas desde el servidor
 async function obtenerPeliculas() {
     try {
-        // Realiza una solicitud fetch a la API para obtener las películas
         const response = await fetch('http://localhost:5069/api/Cine/GetPeliculas');
-        // Verifica si la respuesta no es correcta
         if (!response.ok) {
             throw new Error('Error al obtener las películas');
         }
-
-        // Convierte la respuesta a formato JSON
         const peliculas = await response.json();
 
-        // Retorna las películas obtenidas
+        // Retorna las peliculas obtenidas
         return peliculas;
     } catch (error) {
         console.error('Error:', error);
-        // Retorna un arreglo vacío en caso de error
+        // Retorna un arreglo vacio en caso de error
         return [];
     }
 }
@@ -258,12 +245,10 @@ async function mostrarPeliculasEnTarjetas() {
 // Función para cargar los elementos del select de géneros
 async function CargarGeneros() {
     try {
-        // Realiza una solicitud a la API para obtener los géneros
         const response = await fetch('http://localhost:5069/api/Cine/GetGeneros');
         if (!response.ok) {
             throw new Error('Error al obtener los géneros');
         }
-        // Convierte la respuesta a JSON
         const generos = await response.json();
         // Obtiene el elemento select del DOM
         const selectGenero = document.getElementById('SelectGenero');
@@ -272,7 +257,7 @@ async function CargarGeneros() {
         }
         // Limpia las opciones existentes en el select
         selectGenero.innerHTML = '';
-        // Añade una opción por defecto
+        // Añade la opción por defecto
         const optionDefault = document.createElement('option');
         optionDefault.value = '';
         optionDefault.textContent = 'Seleccione un género';
@@ -292,26 +277,21 @@ async function CargarGeneros() {
 // Función para cargar los elementos del select de edades
 async function CargarEdades() {
     try {
-        // Realiza una solicitud a la API para obtener las edades
         const response = await fetch('http://localhost:5069/api/Cine/GetEdades');
         if (!response.ok) {
             throw new Error('Error al obtener las edades');
         }
-        // Convierte la respuesta a JSON
         const edades = await response.json();
         // Obtiene el elemento select del DOM
         const selectEdad = document.getElementById('SelectEdad');
         if (!selectEdad) {
             throw new Error('Elemento selectEdad no encontrado');
         }
-        // Limpia las opciones existentes en el select
         selectEdad.innerHTML = '';
-        // Añade una opción por defecto
         const optionDefault = document.createElement('option');
         optionDefault.value = '';
         optionDefault.textContent = 'Seleccione una edad';
         selectEdad.appendChild(optionDefault);
-        // Itera sobre las edades obtenidas y añade cada una como una opción en el select
         edades.forEach(edad => {
             const option = document.createElement('option');
             option.value = edad.idEdad;
@@ -326,26 +306,20 @@ async function CargarEdades() {
 // Función para cargar los elementos del select de directores
 async function CargarDirectores() {
     try {
-        // Realiza una solicitud a la API para obtener los directores
         const response = await fetch('http://localhost:5069/api/Cine/GetDirectores');
         if (!response.ok) {
             throw new Error('Error al obtener los directores');
         }
-        // Convierte la respuesta a JSON
         const directores = await response.json();
-        // Obtiene el elemento select del DOM
         const selectDirector = document.getElementById('SelectDirector');
         if (!selectDirector) {
             throw new Error('Elemento selectDirector no encontrado');
         }
-        // Limpia las opciones existentes en el select
         selectDirector.innerHTML = '';
-        // Añade una opción por defecto
         const optionDefault = document.createElement('option');
         optionDefault.value = '';
         optionDefault.textContent = 'Seleccione un director';
         selectDirector.appendChild(optionDefault);
-        // Itera sobre los directores obtenidos y añade cada uno como una opción en el select
         directores.forEach(director => {
             const option = document.createElement('option');
             option.value = director.idDirector;
@@ -412,7 +386,7 @@ async function venderTicket(idPelicula) {
             console.log('Datos:', transaccion);
 
             try {
-                // Enviar transacción al servidor
+                // Enviar los datos obtenidos del formulario a la API
                 const response = await fetch('http://localhost:5069/api/Ticket/RegistrarTransaccion', {
                     method: 'POST',
                     headers: {
@@ -422,7 +396,7 @@ async function venderTicket(idPelicula) {
                 });
 
                 if (response.ok) {
-                    // Redirigir a ticket.html con los datos del ticket
+                    // Guardar los datos de ticket en la url para usarlos en la página de ticket.html
                     const urlParams = new URLSearchParams({
                         movieName: pelicula.titulo,
                         paymentMethod: document.getElementById('paymentMethod').selectedOptions[0].text,
@@ -432,6 +406,7 @@ async function venderTicket(idPelicula) {
                         quantity: document.getElementById('ticketQuantity').value,
                         totalPrice: document.getElementById('totalPrice').value
                     });
+                    // Abrir página de ticket.html con los datos de la transacción
                     window.open(`ticket.html?${urlParams.toString()}`, '_blank');
                 } else {
                     const errorData = await response.json();
@@ -455,6 +430,8 @@ async function obtenerPeliculaPorId(idPelicula) {
         throw new Error('Error al obtener la película');
     }
 }
+
+// Función para cargar formas de pago desde la API
 async function CargarMetodosDePago() {
     try {
         const response = await fetch('http://localhost:5069/api/Ticket/GetAllFormasDePago');
@@ -465,19 +442,16 @@ async function CargarMetodosDePago() {
         const formasDePago = await response.json();
         const selectFormaDePago = document.getElementById("paymentMethod");
 
-        // Limpiar las opciones actuales
         selectFormaDePago.innerHTML = "";
 
-        // Agregar opción por defecto
         const opcionPorDefecto = document.createElement("option");
         opcionPorDefecto.value = "";
         opcionPorDefecto.textContent = "Seleccione una forma de pago";
         selectFormaDePago.appendChild(opcionPorDefecto);
 
-        // Agregar una opción por cada método de pago obtenido de la API
         formasDePago.forEach(forma => {
             const opcion = document.createElement("option");
-            opcion.value = forma.idFormaDePago; // Asume que 'id' es el identificador del método de pago en la API
+            opcion.value = forma.idFormaDePago;
             opcion.textContent = forma.descripcion;
             selectFormaDePago.appendChild(opcion);
         });
@@ -486,7 +460,7 @@ async function CargarMetodosDePago() {
     }
 }
 
-
+// Función para cargar números de función desde la API
 async function CargarFunciones() {
     try {
         const response = await fetch('http://localhost:5069/api/Cine/GetFunciones');
@@ -497,16 +471,13 @@ async function CargarFunciones() {
         const numerosDeFuncion = await response.json();
         const selectNumeroDeFuncion = document.getElementById("showNumber");
 
-        // Limpiar las opciones actuales
         selectNumeroDeFuncion.innerHTML = "";
 
-        // Agregar opción por defecto
         const opcionPorDefecto = document.createElement("option");
         opcionPorDefecto.value = "";
         opcionPorDefecto.textContent = "Seleccione un número de función";
         selectNumeroDeFuncion.appendChild(opcionPorDefecto);
 
-        // Agregar una opción por cada número de función obtenido de la API
         numerosDeFuncion.forEach(funcion => {
             const opcion = document.createElement("option");
             opcion.value = funcion.nroFuncion;
@@ -529,20 +500,17 @@ async function CargarPromos() {
         const codigosDePromocion = await response.json();
         const selectCodigoDePromocion = document.getElementById("promoCode");
 
-        // Limpiar las opciones actuales
         selectCodigoDePromocion.innerHTML = "";
 
-        // Agregar opción por defecto
         const opcionPorDefecto = document.createElement("option");
         opcionPorDefecto.value = "";
         opcionPorDefecto.textContent = "Seleccione un código de promoción";
         selectCodigoDePromocion.appendChild(opcionPorDefecto);
 
-        // Agregar una opción por cada código de promoción obtenido de la API
         codigosDePromocion.forEach(codigo => {
             const opcion = document.createElement("option");
-            opcion.value = codigo.codPromocion; // Asume que 'id' es el identificador del código de promoción en la API
-            opcion.textContent = codigo.descripcion; // Asume que 'code' es el código de promoción
+            opcion.value = codigo.codPromocion;
+            opcion.textContent = codigo.descripcion;
             selectCodigoDePromocion.appendChild(opcion);
         });
     } catch (error) {
