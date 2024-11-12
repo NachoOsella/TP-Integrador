@@ -359,6 +359,15 @@ async function CargarDirectores() {
 
 
 
+// Función para calcular el monto final
+function calcularMontoFinal() {
+    const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value);
+    const pricePerTicket = parseFloat(document.getElementById('Price').value);
+    const totalPrice = ticketQuantity * pricePerTicket;
+    document.getElementById('totalPrice').value = totalPrice.toFixed(2);
+}
+
+// Modificar la función venderTicket
 async function venderTicket(idPelicula) {
     // Cargar la vista del formulario de transacción
     cargar_vista('transaccionxpelicula.html', async () => {
@@ -381,13 +390,17 @@ async function venderTicket(idPelicula) {
         document.getElementById('movieImage').appendChild(img);
         document.getElementById('movieDescription').textContent = pelicula.descripcion;
 
+        // Configurar el evento de cambio en la cantidad de boletos
+        document.getElementById('ticketQuantity').addEventListener('input', calcularMontoFinal);
+        document.getElementById('Price').addEventListener('input', calcularMontoFinal);
+
         // Configurar el evento de envío del formulario
         document.getElementById('transactionForm').addEventListener('submit', async function (event) {
             event.preventDefault();
 
             // Obtener datos del formulario
             const transaccion = {
-                monto: document.getElementById('Price').value, // Asegúrate de que el valor sea una cadena que represente una cantidad de dinero
+                monto: document.getElementById('totalPrice').value, // Usar el monto total calculado
                 idFormaDePago: parseInt(document.getElementById('paymentMethod').value),
                 detalleFacturas: [
                     {
@@ -409,7 +422,17 @@ async function venderTicket(idPelicula) {
                 });
 
                 if (response.ok) {
-                    alert('Transacción realizada con éxito');
+                    // Redirigir a ticket.html con los datos del ticket
+                    const urlParams = new URLSearchParams({
+                        movieName: pelicula.titulo,
+                        paymentMethod: document.getElementById('paymentMethod').selectedOptions[0].text,
+                        price: document.getElementById('Price').value,
+                        promoCode: document.getElementById('promoCode').selectedOptions[0].text,
+                        showNumber: document.getElementById('showNumber').selectedOptions[0].text,
+                        quantity: document.getElementById('ticketQuantity').value,
+                        totalPrice: document.getElementById('totalPrice').value
+                    });
+                    window.open(`ticket.html?${urlParams.toString()}`, '_blank');
                 } else {
                     const errorData = await response.json();
                     console.error('Error al realizar la transacción:', errorData);
@@ -527,7 +550,6 @@ async function loadPromoCodes() {
         console.error("Error al cargar los códigos de promoción:", error);
     }
 }
-
 
 
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket de Película</title>
+    <link rel="stylesheet" href="../css/styles_ticket.css"> <!-- Añade tu archivo de estilos si tienes uno -->
+</head>
+
+<body>
+    <div class="ticket-container">
+        <h1>Ticket de Película</h1>
+        <div class="ticket-details">
+            <p><strong>Película:</strong> <span id="ticket-movieName"></span></p>
+            <p><strong>Método de Pago:</strong> <span id="ticket-paymentMethod"></span></p>
+            <p><strong>Valor del Ticket:</strong> <span id="ticket-price"></span></p>
+            <p><strong>Promoción:</strong> <span id="ticket-promoCode"></span></p>
+            <p><strong>Número de Función:</strong> <span id="ticket-showNumber"></span></p>
+            <p><strong>Cantidad de Boletos:</strong> <span id="ticket-quantity"></span></p>
+            <p><strong>Precio Total:</strong> <span id="ticket-totalPrice"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Función para cargar los datos del ticket
+        function cargarDatosTicket() {
+            const urlParams = new URLSearchParams(window.location.search);
+            document.getElementById('ticket-movieName').textContent = urlParams.get('movieName');
+            document.getElementById('ticket-paymentMethod').textContent = urlParams.get('paymentMethod');
+            document.getElementById('ticket-price').textContent = urlParams.get('price');
+            document.getElementById('ticket-promoCode').textContent = urlParams.get('promoCode');
+            document.getElementById('ticket-showNumber').textContent = urlParams.get('showNumber');
+            document.getElementById('ticket-quantity').textContent = urlParams.get('quantity');
+            document.getElementById('ticket-totalPrice').textContent = urlParams.get('totalPrice');
+        }
+
+        // Llamar a la función para cargar los datos cuando se cargue la página
+        window.onload = cargarDatosTicket;
+    </script>
+</body>
+
+</html>
