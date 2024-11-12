@@ -18,6 +18,7 @@ namespace BackEndApi.Repositorys
         bool Create(Pelicula oPelicula); // para crear una pelicula
         bool Update(int id, Pelicula oPelicula);  //para modificar una descripcion 
         bool Delete(int id); // para dar de baja una pelicula
+        List<Funcione> GetAllFunciones(); // para listar todas las funciones
 
         //-Transaccion
         List<Ticket> GetTickets(); // para listar todos los tickets

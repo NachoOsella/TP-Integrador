@@ -160,7 +160,21 @@ namespace BackEndApi.Controllers
             {
                 return StatusCode(500, "Error interno: " + ex.Message);
             }
+        }
 
+        // getall funciones
+        [HttpGet("GetFunciones")]
+        public IActionResult GetFunciones()
+        {
+            try
+            {
+                return Ok(_repository.GetAllFunciones());
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500, "Ha ocurrido un error interno");
+            }
         }
     }
 }

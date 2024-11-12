@@ -3,8 +3,7 @@ using BackEndApi.Repositorys;
 using BackEndApi.ViewModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.EntityFrameworkCore;
 
 namespace BackEndApi.Controllers
 {
@@ -13,88 +12,57 @@ namespace BackEndApi.Controllers
     [ApiController]
     public class TicketController : ControllerBase
     {
-        private ICineRepository _repository;
-        public TicketController(ICineRepository repository) //llamamos al repositorio 
+        private readonly ICineRepository _repository;
+        private readonly CineDbContext _context;
+
+        public TicketController(ICineRepository repository, CineDbContext context)
         {
             _repository = repository;
+            _context = context;
         }
 
-        [HttpGet("/api"+"/Butcas"+"/GetButacas")]
-        public IActionResult GetButacas()
+        // Métodos existentes...
+        [HttpPost("RegistrarTransaccion")]
+        public async Task<IActionResult> RegistrarTransaccion([FromBody] FacturaDTO facturaDto)
         {
+            using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                return Ok(_repository.GetButacas());
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(500, "Ha ocurrido un error interno");
-            }
-        }
-
-        [HttpGet("/api"+"/Salas"+"/GetSalas")]
-        public IActionResult GetSalas()
-        {
-            try
-            {
-                return Ok(_repository.GetSalas());
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(500, "Ha ocurrido un error interno");
-            }
-        }
-
-        [HttpGet("GetTickets")]
-        public IActionResult GetTickets()
-        {
-            try
-            {
-                return Ok(_repository.GetTickets());
-            }
-            catch (Exception)
-            {
-
-                return StatusCode(500, "Ha ocurrido un error interno");
-            }
-        }
-
-        [HttpPost("RegistrarTicket")]
-        public IActionResult Post([FromBody] Ticket ticket)
-        {
-            try
-            {
-                _repository.CreateTicket(ticket);
-                return Ok("Ticket registrado con éxito!");
-            }
-            catch (Exception)
-            {
-                return BadRequest("Debe completar los campos obligatorios!");
-
-            }
-        }
-
-        [HttpDelete("DeleteTicket/{id}")]
-        public IActionResult Delete(int id)
-        {
-            try
-            {
-                if (_repository.DeleteTicket(id))
+                // Crear la entidad Factura a partir del DTO
+                var factura = new Factura
                 {
-                    return Ok($"El ticket nro {id} se elimino exitosamente");
-                }
-                else
+                    Monto = facturaDto.Monto,
+                    Fecha = facturaDto.Fecha,
+                    IdFormaDePago = facturaDto.IdFormaDePago,
+                    IdCliente = facturaDto.IdCliente
+                };
+
+                // Agregar la factura al contexto
+                _context.Facturas.Add(factura);
+                await _context.SaveChangesAsync();
+
+                // Iterar sobre los detalles y agregarlos
+                foreach (var detalleDto in facturaDto.DetalleFacturas)
                 {
-                    return NotFound("No se encontro un ticket con ese ID");
+                    var detalle = new DetalleFactura
+                    {
+                        NroFactura = factura.NroFactura,
+                        NroFuncion = detalleDto.NroFuncion,
+                        CodPromocion = detalleDto.CodPromocion
+                    };
+                    _context.DetalleFacturas.Add(detalle);
                 }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return Ok("Transacción registrada con éxito");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Error interno: " + ex.Message);
+                await transaction.RollbackAsync();
+                return BadRequest("Error al registrar la transacción: " + ex.Message);
             }
-
         }
     }
 }

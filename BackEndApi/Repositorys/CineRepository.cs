@@ -99,6 +99,12 @@ namespace BackEndApi.Repositorys
         {
             return _context.GenerosPelis.ToList();
         }
+        public List<Funcione> GetAllFunciones()
+        {
+            var now = DateTime.Now;
+            // guardar la hora actual
+            return _context.Funciones.Where(f => f.Dia >= now).ToList();
+        }
         public bool Update(int id, Pelicula opelicula) // update de nueva descripcion de pelicula
         {
 
@@ -163,5 +169,6 @@ namespace BackEndApi.Repositorys
         {
             return _context.Salas.Include(s => s.IdTipoSala).Include(s => s.IdSucursal).ToList();
         }
+
     }
 }
