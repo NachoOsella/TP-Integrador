@@ -15,6 +15,8 @@ public partial class DetalleFactura
 
     public int? CodPromocion { get; set; }
 
+    public int Butaca { get; set; }
+
     public virtual Promocione CodPromocionNavigation { get; set; }
 
     public virtual Factura NroFacturaNavigation { get; set; }

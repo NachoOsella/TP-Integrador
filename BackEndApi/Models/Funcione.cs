@@ -34,4 +34,6 @@ public partial class Funcione
     public virtual ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+
+    public int Capacidad { get; set; }
 }
