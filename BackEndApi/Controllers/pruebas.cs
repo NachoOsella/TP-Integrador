@@ -129,10 +129,11 @@ namespace BackEndApi.Controllers
             var butacasVendidas = await _context.DetalleFacturas
                 .Join(_context.Funciones, df => df.NroFuncion, f => f.NroFuncion, (df, f) => new { df, f })
                 .Join(_context.Peliculas, df_f => df_f.f.IdPelicula, p => p.IdPelicula, (df_f, p) => new { df_f.df, p })
-                .GroupBy(g => g.p.Titulo)
+                .GroupBy(g => new { g.p.Titulo, g.p.Url })
                 .Select(g => new
                 {
-                    Pelicula = g.Key,
+                    Pelicula = g.Key.Titulo,
+                    Url = g.Key.Url,
                     ButacasVendidas = g.Count()
                 })
                 .OrderByDescending(g => g.ButacasVendidas)
@@ -140,5 +141,48 @@ namespace BackEndApi.Controllers
 
             return Ok(butacasVendidas);
         }
+
+        [HttpPost("agregar-funcion")]
+        public async Task<IActionResult> AgregarFuncion([FromBody] FuncionDto nuevaFuncionDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var nuevaFuncion = new Funcione
+                {
+                    NroFuncion = nuevaFuncionDTO.NroFuncion,
+                    Dia = nuevaFuncionDTO.Dia,
+                    Hora = nuevaFuncionDTO.Hora,
+                    IdPelicula = nuevaFuncionDTO.IdPelicula,
+                    NroSala = nuevaFuncionDTO.NroSala,
+                    Capacidad = nuevaFuncionDTO.Capacidad
+                };
+
+                _context.Funciones.Add(nuevaFuncion);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction(nameof(GetFuncion), new { id = nuevaFuncion.NroFuncion }, nuevaFuncion);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al agregar la función: {ex.Message}");
+            }
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetFuncion(int id)
+        {
+            var funcion = await _context.Funciones.FindAsync(id);
+
+            if (funcion == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(funcion);
+        }
+
     }
 }

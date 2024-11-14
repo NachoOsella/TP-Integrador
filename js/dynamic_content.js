@@ -345,7 +345,7 @@ function calcularMontoFinal() {
 async function venderTicket(idPelicula) {
     // Cargar la vista del formulario de transacción
     cargar_vista('transaccionxpelicula.html', async () => {
-        await CargarFunciones();
+        await CargarFunciones(idPelicula);
         await CargarMetodosDePago();
         await CargarPromos();
 
@@ -355,7 +355,7 @@ async function venderTicket(idPelicula) {
         // Rellenar los campos con la información de la película
         document.getElementById('movieName').value = pelicula.titulo;
 
-        // Cargar en el div la imagen y la descripción de la película
+        // Cargar la imagen y la descripción de la película
         const img = document.createElement('img');
         img.src = pelicula.url;
         img.style.width = '300px';
@@ -364,30 +364,23 @@ async function venderTicket(idPelicula) {
         document.getElementById('movieImage').appendChild(img);
         document.getElementById('movieDescription').textContent = pelicula.descripcion;
 
-        // Configurar el evento de cambio en la cantidad de boletos
-        document.getElementById('ticketQuantity').addEventListener('input', calcularMontoFinal);
-        document.getElementById('Price').addEventListener('input', calcularMontoFinal);
-
         // Configurar el evento de envío del formulario
         document.getElementById('transactionForm').addEventListener('submit', async function (event) {
             event.preventDefault();
 
             // Obtener datos del formulario
             const transaccion = {
-                monto: document.getElementById('totalPrice').value, // Usar el monto total calculado
+                idCliente: 1, // Asignar el ID del cliente según corresponda
                 idFormaDePago: parseInt(document.getElementById('paymentMethod').value),
-                detalleFacturas: [
-                    {
-                        nroFuncion: parseInt(document.getElementById('showNumber').value),
-                        codPromocion: parseInt(document.getElementById('promoCode').value)
-                    }
-                ]
+                montoBase: parseFloat(document.getElementById('Price').value),
+                codPromocion: parseInt(document.getElementById('promoCode').value),
+                nroFuncion: parseInt(document.getElementById('showNumber').value),
+                cantidadButacas: parseInt(document.getElementById('ticketQuantity').value)
             };
-            console.log('Datos:', transaccion);
 
             try {
-                // Enviar los datos obtenidos del formulario a la API
-                const response = await fetch('http://localhost:5069/api/Ticket/RegistrarTransaccion', {
+                // Enviar los datos a la API
+                const response = await fetch('http://localhost:5069/api/Peliculas/facturar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -396,22 +389,23 @@ async function venderTicket(idPelicula) {
                 });
 
                 if (response.ok) {
-                    // Guardar los datos de ticket en la url para usarlos en la página de ticket.html
+                    const data = await response.json();
+                    // Guardar los datos del ticket para usarlos en ticket.html
                     const urlParams = new URLSearchParams({
                         movieName: pelicula.titulo,
                         paymentMethod: document.getElementById('paymentMethod').selectedOptions[0].text,
                         price: document.getElementById('Price').value,
                         promoCode: document.getElementById('promoCode').selectedOptions[0].text,
                         showNumber: document.getElementById('showNumber').selectedOptions[0].text,
-                        quantity: document.getElementById('ticketQuantity').value,
-                        totalPrice: document.getElementById('totalPrice').value
+                        quantity: transaccion.cantidadButacas,
+                        totalPrice: data.montoTotal // Utilizar el monto total devuelto por el POST
                     });
-                    // Abrir página de ticket.html con los datos de la transacción
+                    // Abrir la página de ticket.html con los datos de la transacción
                     window.open(`ticket.html?${urlParams.toString()}`, '_blank');
                 } else {
                     const errorData = await response.json();
                     console.error('Error al realizar la transacción:', errorData);
-                    alert('Error al realizar la transacción: ' + JSON.stringify(errorData.errors));
+                    alert('Error al realizar la venta, Verifique que la cantidad de butacas no sea superior a la disponible');
                 }
             } catch (error) {
                 console.error('Error al realizar la transacción:', error);
@@ -461,14 +455,16 @@ async function CargarMetodosDePago() {
 }
 
 // Función para cargar números de función desde la API
-async function CargarFunciones() {
+async function CargarFunciones(idPelicula) {
     try {
-        const response = await fetch('http://localhost:5069/api/Cine/GetFunciones');
+        const response = await fetch(`http://localhost:5069/api/Peliculas/${idPelicula}/funciones-disponibles`);
+        console.log('Response status:', response.status); // Agregado para depuración
         if (!response.ok) {
             throw new Error("Error al obtener los números de función");
         }
 
         const numerosDeFuncion = await response.json();
+        console.log('Response data:', numerosDeFuncion); // Agregado para depuración
         const selectNumeroDeFuncion = document.getElementById("showNumber");
 
         selectNumeroDeFuncion.innerHTML = "";
@@ -481,7 +477,28 @@ async function CargarFunciones() {
         numerosDeFuncion.forEach(funcion => {
             const opcion = document.createElement("option");
             opcion.value = funcion.nroFuncion;
-            opcion.textContent = funcion.dia;
+
+            // Crear objetos Date a partir de 'funcion.dia' y 'funcion.hora'
+            const fechaDia = new Date(funcion.dia);
+            const fechaHora = new Date(funcion.hora);
+
+            // Formatear la fecha en formato legible (DD/MM/YYYY)
+            const opcionesFecha = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            };
+            const fechaFormateada = fechaDia.toLocaleDateString('es-AR', opcionesFecha);
+
+            // Formatear la hora en formato legible (HH:mm)
+            const opcionesHora = {
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            const horaFormateada = fechaHora.toLocaleTimeString('es-AR', opcionesHora);
+
+            // Combinar fecha y hora en el texto de la opción
+            opcion.textContent = `Función ${funcion.nroFuncion} - ${fechaFormateada} ${horaFormateada}`;
             selectNumeroDeFuncion.appendChild(opcion);
         });
     } catch (error) {
@@ -519,3 +536,117 @@ async function CargarPromos() {
 }
 
 
+// Función para mostrar las películas más vendidas
+async function mostrarPeliculasMasVendidas() {
+    try {
+        const response = await fetch('http://localhost:5069/api/Peliculas/butacas-vendidas');
+        if (!response.ok) {
+            throw new Error('Error en la solicitud: ' + response.statusText);
+        }
+        const data = await response.json();
+        const peliculasLimitadas = data.slice(0, 10);
+
+        const tbody = document.getElementById('tbodyMasVendidas');
+        tbody.innerHTML = '';
+
+        peliculasLimitadas.forEach(pelicula => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><img src="${pelicula.url}" style="width: 50px;"></td>
+                <td>${pelicula.pelicula}</td>
+                <td>${pelicula.butacasVendidas}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } catch (error) {
+        console.error('Error al mostrar las películas más vendidas:', error);
+    }
+}
+
+
+// Funcion para mostrar todas las peliculas en un select
+async function mostrarPeliculasSelect() {
+    try {
+        const response = await fetch('http://localhost:5069/api/Cine/GetPeliculas');
+        if (!response.ok) {
+            throw new Error('Error en la solicitud: ' + response.statusText);
+        }
+        const data = await response.json();
+
+        const selectPeliculas = document.getElementById('SelectPelicula');
+        selectPeliculas.innerHTML = '';
+
+        const optionDefault = document.createElement('option');
+        optionDefault.value = '';
+        optionDefault.textContent = 'Seleccione una película';
+        selectPeliculas.appendChild(optionDefault);
+
+        data.forEach(pelicula => {
+            const option = document.createElement('option');
+            option.value = pelicula.idPelicula;
+            option.textContent = pelicula.titulo;
+            selectPeliculas.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error al mostrar las películas:', error);
+    }
+}
+
+// Función para agregar una nueva función
+async function agregarFuncion() {
+    const diaInput = document.getElementById('dia').value;
+    const horaInput = document.getElementById('hora').value;
+
+    // Añadir segundos para completar el formato
+    const horaCompleta = `${horaInput}:00`; // '14:30:00'
+
+    // Combinar fecha y hora completa
+    const diaHoraString = `${diaInput}T${horaCompleta}`;
+
+    // Crear objeto Date a partir del string completo
+    const diaHora = new Date(diaHoraString);
+
+    // Verificar si la fecha es válida
+    if (isNaN(diaHora.getTime())) {
+        alert('Fecha y hora inválidas. Por favor verifica los campos.');
+        return;
+    }
+
+    // Convertir a formato ISO
+    const diaHoraISO = diaHora.toISOString();
+
+    const funcion = {
+        dia: diaHoraISO,
+        hora: diaHoraISO, // Si 'hora' espera el mismo valor
+        idPelicula: parseInt(document.getElementById('SelectPelicula').value),
+        nroSala: parseInt(document.getElementById('nroSala').value),
+        capacidad: parseInt(document.getElementById('capacidad').value)
+    };
+
+    try {
+        const response = await fetch('http://localhost:5069/api/Peliculas/agregar-funcion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(funcion)
+        });
+        if (!response.ok) {
+            console.log('diaInput:', diaInput);
+            console.log('horaInput:', horaInput);
+            console.log('diaHoraString:', diaHoraString);
+            console.log('diaHora:', diaHora);
+            throw new Error('Error al agregar la función');
+        }
+        alert('Función agregada exitosamente');
+        // Limpiar el formulario
+        document.getElementById('dia').value = '';
+        document.getElementById('hora').value = '';
+        document.getElementById('SelectPelicula').value = '';
+        document.getElementById('nroSala').value = '';
+        document.getElementById('capacidad').value = '';
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al agregar la función.');
+    }
+}

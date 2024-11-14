@@ -44,9 +44,14 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Alta</h5>
-                        <p class="card-text">Añadir una nueva película a la base de datos de CINE.</p>
+                        <p class="card-text">Añadir peliculas y funciones a la base de datos.</p>
                         <a href="#" class="btn btn-primary"
-                            onclick="cargar_vista('alta.html', CargarGeneros, CargarDirectores, CargarEdades)">Añadir</a>
+                            onclick="cargar_vista('alta.html', CargarGeneros, CargarDirectores, CargarEdades)">Añadir
+                            Pelicula</a>
+                        <a href="#" class="btn btn-primary"
+                            onclick="cargar_vista('altaFuncion.html', mostrarPeliculasSelect)">Añadir
+                            Función</a>
+
                     </div>
                 </div>
             </div>
@@ -55,9 +60,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Consultar</h5>
-                        <p class="card-text">Consultar todas las películas en la base de datos de CINE.</p>
+                        <p class="card-text">Consultar peliculas en cartelera y el top de ventas.</p>
                         <a href="#" class="btn btn-info"
                             onclick="cargar_vista('consultar.html', mostrarPeliculas)">Consultar</a>
+                        <a href="#" class="btn btn-info"
+                            onclick="cargar_vista('topVentas.html', mostrarPeliculasMasVendidas)">TopVentas</a>
+
                     </div>
                 </div>
             </div>
@@ -65,7 +73,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Transaccion</h5>
-                        <p class="card-text">Venta de tickets.</p>
+                        <p class="card-text">Vender tickets.</p>
                         <a href="#" class="btn btn-info"
                             onclick="cargar_vista('transaccion.html', mostrarPeliculasEnTarjetas)">Transaccion</a>
                     </div>

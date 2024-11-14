@@ -40,7 +40,8 @@ body {
 }
 
 .card-body .btn {
-    margin-top: auto;
+    margin-top: 10px;
+
 }
 
 .card-title {
