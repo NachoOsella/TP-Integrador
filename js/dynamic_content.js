@@ -388,13 +388,17 @@ async function venderTicket(idPelicula) {
             event.preventDefault();
 
             // Obtener datos del formulario
+            const cantidadButacas = parseInt(document.getElementById('ticketQuantity').value);
+            const montoBase = parseFloat(document.getElementById('Price').value);
+            const montoTotal = montoBase * cantidadButacas;
+
             const transaccion = {
                 idCliente: 1, // Asignar el ID del cliente según corresponda
                 idFormaDePago: parseInt(document.getElementById('paymentMethod').value),
-                montoBase: parseFloat(document.getElementById('Price').value),
+                montoBase: montoTotal,
                 codPromocion: parseInt(document.getElementById('promoCode').value),
                 nroFuncion: parseInt(document.getElementById('showNumber').value),
-                cantidadButacas: parseInt(document.getElementById('ticketQuantity').value)
+                cantidadButacas: cantidadButacas
             };
 
             try {
@@ -413,7 +417,7 @@ async function venderTicket(idPelicula) {
                     const urlParams = new URLSearchParams({
                         movieName: pelicula.titulo,
                         paymentMethod: document.getElementById('paymentMethod').selectedOptions[0].text,
-                        price: document.getElementById('Price').value,
+                        price: montoBase, // Enviar el precio individual del ticket
                         promoCode: document.getElementById('promoCode').selectedOptions[0].text,
                         showNumber: document.getElementById('showNumber').selectedOptions[0].text,
                         quantity: transaccion.cantidadButacas,
@@ -437,7 +441,6 @@ async function venderTicket(idPelicula) {
         });
     });
 }
-
 // Función para obtener detalles de una película por ID
 async function obtenerPeliculaPorId(idPelicula) {
     const response = await fetch(`http://localhost:5069/api/Cine/GetPelicula/${idPelicula}`);
