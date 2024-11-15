@@ -22,11 +22,13 @@ namespace BackEndApi.Repositorys
         List<FormasDePago> GetAllFormasDePago(); // para listar todas las formas de pago
         List<Promocione> GetAllPromociones(); // para listar todas las promociones
 
-        //-Transaccion
-        List<Ticket> GetTickets(); // para listar todos los tickets
-        List<Butaca> GetButacas(); // para listar todas las butacas
-        List<Sala> GetSalas(); // para listar todas las salas
-        bool CreateTicket(Ticket ticket); // para crear un ticket
-        bool DeleteTicket(int id); // para dar de baja un ticket
+
+        Task<List<Funcione>> GetFuncionesDisponiblesAsync(int idPelicula);
+        Task<(bool exito, string mensaje, Factura factura)> FacturarAsync(FacturaRequest request);
+        Task<List<ButacasVendidasDto>> GetButacasVendidasAsync();
+        Task<(bool exito, string mensaje, Funcione funcion)> AgregarFuncionAsync(FuncionDto nuevaFuncionDTO);
+        Task<Funcione> GetFuncionAsync(int id);
+        Task<List<Sala>> GetSalasBySucursalAsync(int idSucursal);
+
     }
 }

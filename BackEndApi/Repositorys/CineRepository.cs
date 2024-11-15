@@ -140,6 +140,8 @@ namespace BackEndApi.Repositorys
 
                 if (opelicula.IdDirector.HasValue)
                     pelicula.IdDirector = opelicula.IdDirector.Value;
+                if (opelicula.Url != null)
+                    pelicula.Url = opelicula.Url;
 
 
 
@@ -149,37 +151,142 @@ namespace BackEndApi.Repositorys
             return false; // Devuelve false si no se encontró la película
         }
 
-        //Transaccion
 
-        public bool CreateTicket(Ticket oTicket)
+        public async Task<List<Funcione>> GetFuncionesDisponiblesAsync(int idPelicula)
         {
-            _context.Tickets.Add(oTicket); // Crea un ticket gracias al objeto ticket
-            return _context.SaveChanges() == 1;
+            return await _context.Funciones
+                .Where(f => f.IdPelicula == idPelicula && f.Capacidad > 0)
+                .Select(f => new Funcione
+                {
+                    NroFuncion = f.NroFuncion,
+                    Dia = f.Dia,
+                    Hora = f.Hora,
+                    Capacidad = f.Capacidad
+                })
+                .ToListAsync();
         }
 
-        public bool DeleteTicket(int id) //baja logica, busca por id y elimina el ticket, desocupando la butaca
+        public async Task<(bool exito, string mensaje, Factura factura)> FacturarAsync(FacturaRequest request)
         {
-            var ticket = _context.Tickets.FirstOrDefault(t => t.NroTicket == id);
-            if (ticket != null)
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                _context.Tickets.Remove(ticket);
-                return _context.SaveChanges() == 1;
+                try
+                {
+                    var promocion = await _context.Promociones
+                        .FirstOrDefaultAsync(p => p.CodPromocion == request.CodPromocion);
+
+                    var monto = request.MontoBase;
+
+                    if (promocion != null)
+                    {
+                        monto -= (monto * (promocion.Descuento ?? 0) / 100);
+                    }
+
+                    var factura = new Factura
+                    {
+                        Fecha = DateTime.Now,
+                        Monto = monto,
+                        IdCliente = request.IdCliente,
+                        IdFormaDePago = request.IdFormaDePago,
+                    };
+
+                    _context.Facturas.Add(factura);
+                    await _context.SaveChangesAsync();
+
+                    for (int i = 0; i < request.CantidadButacas; i++)
+                    {
+                        var detalleFactura = new DetalleFactura
+                        {
+                            NroFactura = factura.NroFactura,
+                            NroFuncion = request.NroFuncion,
+                            CodPromocion = request.CodPromocion
+                        };
+
+                        _context.DetalleFacturas.Add(detalleFactura);
+                    }
+
+                    var funcion = await _context.Funciones
+                        .FirstOrDefaultAsync(f => f.NroFuncion == request.NroFuncion);
+
+                    if (funcion == null || funcion.Capacidad < request.CantidadButacas)
+                    {
+                        await transaction.RollbackAsync();
+                        return (false, "No hay capacidad disponible para la función seleccionada.", null);
+                    }
+
+                    funcion.Capacidad -= request.CantidadButacas;
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+
+                    return (true, "Factura procesada exitosamente.", factura);
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    var innerException = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                    return (false, $"Error al procesar la factura: {innerException}", null);
+                }
             }
-            else return false;
         }
 
-        public List<Ticket> GetTickets() //llama a todos los tickets
+        public async Task<List<ButacasVendidasDto>> GetButacasVendidasAsync()
         {
-            return _context.Tickets.Include(t => t.NroFuncion).Include(t => t.IdButaca).ToList();
+            return await _context.DetalleFacturas
+                .Join(_context.Funciones, df => df.NroFuncion, f => f.NroFuncion, (df, f) => new { df, f })
+                .Join(_context.Peliculas, df_f => df_f.f.IdPelicula, p => p.IdPelicula, (df_f, p) => new { df_f.df, p })
+                .GroupBy(g => new { g.p.Titulo, g.p.Url })
+                .Select(g => new ButacasVendidasDto
+                {
+                    Pelicula = g.Key.Titulo,
+                    Url = g.Key.Url,
+                    ButacasVendidas = g.Count()
+                })
+                .OrderByDescending(g => g.ButacasVendidas)
+                .ToListAsync();
         }
-        public List<Butaca> GetButacas() //llama a todas las butacas
+
+        public async Task<(bool exito, string mensaje, Funcione funcion)> AgregarFuncionAsync(FuncionDto nuevaFuncionDTO)
         {
-            return _context.Butacas.Include(b => b.NroSala).Include(b => b.IdTipoButaca).ToList();
+            if (nuevaFuncionDTO == null)
+            {
+                return (false, "Datos de la función no válidos.", null);
+            }
+
+            try
+            {
+                var nuevaFuncion = new Funcione
+                {
+                    NroFuncion = nuevaFuncionDTO.NroFuncion,
+                    Dia = nuevaFuncionDTO.Dia,
+                    Hora = nuevaFuncionDTO.Hora,
+                    IdPelicula = nuevaFuncionDTO.IdPelicula,
+                    NroSala = nuevaFuncionDTO.NroSala,
+                    Capacidad = nuevaFuncionDTO.Capacidad
+                };
+
+                _context.Funciones.Add(nuevaFuncion);
+                await _context.SaveChangesAsync();
+                return (true, "Función agregada exitosamente.", nuevaFuncion);
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Error al agregar la función: {ex.Message}", null);
+            }
         }
-        public List<Sala> GetSalas() //llama a todas las salas
+
+        public async Task<Funcione> GetFuncionAsync(int id)
         {
-            return _context.Salas.Include(s => s.IdTipoSala).Include(s => s.IdSucursal).ToList();
+            return await _context.Funciones.FindAsync(id);
         }
+
+        public async Task<List<Sala>> GetSalasBySucursalAsync(int idSucursal)
+        {
+            return await _context.Salas
+                .Where(s => s.IdSucursal == idSucursal)
+                .ToListAsync();
+        }
+
 
     }
 }

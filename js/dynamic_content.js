@@ -207,6 +207,8 @@ async function editarPelicula(id) {
                     cargar_vista('consultar.html', mostrarPeliculas);
                 } else {
                     alert('Error al actualizar la película, Cargue todos los campos.');
+                    console.error('Error al actualizar la película:', result);
+                    console.log(updatedPeli);
                 }
             };
         });
