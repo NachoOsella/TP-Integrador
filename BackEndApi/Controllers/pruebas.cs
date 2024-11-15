@@ -36,23 +36,6 @@ namespace BackEndApi.Controllers
 
             return Ok(funciones);
         }
-
-        [HttpGet("promociones-activas")]
-        public async Task<IActionResult> GetPromocionesActivas()
-        {
-            var promociones = await _context.Promociones
-                .Where(p => DateTime.Now >= p.FecInicio && DateTime.Now <= p.FecFin)
-                .Select(p => new
-                {
-                    p.CodPromocion,
-                    p.Descripcion,
-                    p.Descuento
-                })
-                .ToListAsync();
-
-            return Ok(promociones);
-        }
-
         [HttpPost("facturar")]
         public async Task<IActionResult> Facturar([FromBody] FacturaRequest request)
         {
@@ -182,6 +165,20 @@ namespace BackEndApi.Controllers
             }
 
             return Ok(funcion);
+        }
+        [HttpGet("sucursales/{idSucursal}/salas")]
+        public async Task<IActionResult> GetSalasBySucursal(int idSucursal)
+        {
+            var salas = await _context.Salas
+                .Where(s => s.IdSucursal == idSucursal)
+                .ToListAsync();
+
+            if (salas == null || !salas.Any())
+            {
+                return NotFound("No se encontraron salas para la sucursal especificada.");
+            }
+
+            return Ok(salas);
         }
 
     }

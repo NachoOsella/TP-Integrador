@@ -12,6 +12,34 @@ function cargar_vista(url, ...callbacks) { // Los tres puntos guardan las funcio
                     callback();
                 }
             });
+
+            // Funcion para cargar las salas en el select
+            async function CargarSalas() {
+                try {
+                    const response = await fetch('http://localhost:5069/api/Cine/GetSalas');
+                    if (!response.ok) {
+                        throw new Error('Error al obtener las salas');
+                    }
+                    const salas = await response.json();
+                    const selectSala = document.getElementById('nroSala');
+                    if (!selectSala) {
+                        throw new Error('Elemento selectSala no encontrado');
+                    }
+                    selectSala.innerHTML = '';
+                    const optionDefault = document.createElement('option');
+                    optionDefault.value = '';
+                    optionDefault.textContent = 'Seleccione una sala';
+                    selectSala.appendChild(optionDefault);
+                    salas.forEach(sala => {
+                        const option = document.createElement('option');
+                        option.value = sala.nroSala;
+                        option.textContent = sala.nroSala;
+                        selectSala.appendChild(option);
+                    });
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
         })
         .catch((error) => console.error('Error al cargar la vista:', error));
 }
@@ -333,14 +361,6 @@ async function CargarDirectores() {
 
 
 
-// Función para calcular el monto final
-function calcularMontoFinal() {
-    const ticketQuantity = parseInt(document.getElementById('ticketQuantity').value);
-    const pricePerTicket = parseFloat(document.getElementById('Price').value);
-    const totalPrice = ticketQuantity * pricePerTicket;
-    document.getElementById('totalPrice').value = totalPrice.toFixed(2);
-}
-
 // Modificar la función venderTicket
 async function venderTicket(idPelicula) {
     // Cargar la vista del formulario de transacción
@@ -606,6 +626,9 @@ async function agregarFuncion() {
     // Crear objeto Date a partir del string completo
     const diaHora = new Date(diaHoraString);
 
+    // Ajustar la hora manualmente para evitar la conversión de zona horaria
+    diaHora.setHours(diaHora.getHours() - diaHora.getTimezoneOffset() / 60);
+
     // Verificar si la fecha es válida
     if (isNaN(diaHora.getTime())) {
         alert('Fecha y hora inválidas. Por favor verifica los campos.');
@@ -619,7 +642,7 @@ async function agregarFuncion() {
         dia: diaHoraISO,
         hora: diaHoraISO, // Si 'hora' espera el mismo valor
         idPelicula: parseInt(document.getElementById('SelectPelicula').value),
-        nroSala: parseInt(document.getElementById('nroSala').value),
+        nroSala: parseInt(document.getElementById('SelectSala').value),
         capacidad: parseInt(document.getElementById('capacidad').value)
     };
 
@@ -631,22 +654,44 @@ async function agregarFuncion() {
             },
             body: JSON.stringify(funcion)
         });
+
         if (!response.ok) {
-            console.log('diaInput:', diaInput);
-            console.log('horaInput:', horaInput);
-            console.log('diaHoraString:', diaHoraString);
-            console.log('diaHora:', diaHora);
             throw new Error('Error al agregar la función');
         }
+        // Recargar la página para mostrar la nueva función
+
         alert('Función agregada exitosamente');
-        // Limpiar el formulario
-        document.getElementById('dia').value = '';
-        document.getElementById('hora').value = '';
-        document.getElementById('SelectPelicula').value = '';
-        document.getElementById('nroSala').value = '';
-        document.getElementById('capacidad').value = '';
+        location.reload();
     } catch (error) {
         console.error('Error:', error);
-        alert('Error al agregar la función.');
+        alert('Error al agregar la función');
+    }
+}
+
+// Función para cargar las salas en el select
+async function CargarSalas() {
+    try {
+        const response = await fetch(`http://localhost:5069/api/Peliculas/sucursales/${1}/salas`);
+        if (!response.ok) {
+            throw new Error('Error al obtener las salas');
+        }
+        const salas = await response.json();
+        const selectSala = document.getElementById('SelectSala');
+        if (!selectSala) {
+            throw new Error('Elemento selectSala no encontrado');
+        }
+        selectSala.innerHTML = '';
+        const optionDefault = document.createElement('option');
+        optionDefault.value = '';
+        optionDefault.textContent = 'Seleccione una sala';
+        selectSala.appendChild(optionDefault);
+        salas.forEach(sala => {
+            const option = document.createElement('option');
+            option.value = sala.nroSala;
+            option.textContent = sala.nroSala;
+            selectSala.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error:', error);
     }
 }
