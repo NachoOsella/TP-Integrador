@@ -359,9 +359,6 @@ async function CargarDirectores() {
     }
 }
 
-
-
-// Modificar la función venderTicket
 async function venderTicket(idPelicula) {
     // Cargar la vista del formulario de transacción
     cargar_vista('transaccionxpelicula.html', async () => {
@@ -428,8 +425,12 @@ async function venderTicket(idPelicula) {
                     alert('Error al realizar la venta, Verifique que la cantidad de butacas no sea superior a la disponible');
                 }
             } catch (error) {
-                console.error('Error al realizar la transacción:', error);
-                alert('Error al realizar la transacción: ' + error.message);
+                if (error instanceof SyntaxError) {
+                    alert('Error al realizar la venta, Verifique que la cantidad de butacas no sea superior a la disponible');
+                } else {
+                    console.error('Error al realizar la transacción:', error);
+                    alert('Error al realizar la transacción: ' + error.message);
+                }
             }
         });
     });
